@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EGOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DISCOUNT">
+          <Key>
+            <PropertyRef Name="DISCOUNTID" />
+          </Key>
+          <Property Name="DISCOUNTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FAMILYID" Type="int" Nullable="false" />
+          <Property Name="DISCOUNTYEAR" Type="int" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="150" />
+          <Property Name="AMOUNT" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DOCUMENT">
+          <Key>
+            <PropertyRef Name="DOCUMENTID" />
+          </Key>
+          <Property Name="DOCUMENTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DOCUMENTTYPEID" Type="int" Nullable="false" />
+          <Property Name="PERSONID" Type="int" Nullable="false" />
+          <Property Name="DOCUMENTYEAR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DOCUMENTTYPE">
+          <Key>
+            <PropertyRef Name="DOCUMENTTYPEID" />
+          </Key>
+          <Property Name="DOCUMENTTYPEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DOCUMENTNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MADATORY" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAMILY">
+          <Key>
+            <PropertyRef Name="FAMILYID" />
+          </Key>
+          <Property Name="FAMILYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LASTNAME" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZIPCODE" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CITY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="GYMGROUP">
+          <Key>
+            <PropertyRef Name="GYMGROUPID" />
+          </Key>
+          <Property Name="GYMGROUPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GYMGROUPNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NUMBEROFHOURS" Type="real" Nullable="false" />
+          <Property Name="GYMYEAR" Type="int" Nullable="false" />
+          <Property Name="YEARPRICE" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KIND">
+          <Key>
+            <PropertyRef Name="KINDID" />
+          </Key>
+          <Property Name="KINDID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KINDNAME" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PAYMENT">
+          <Key>
+            <PropertyRef Name="PAYMENTID" />
+          </Key>
+          <Property Name="PAYMENTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PAYMENTTYPEID" Type="int" Nullable="false" />
+          <Property Name="FAMILYID" Type="int" Nullable="false" />
+          <Property Name="GYMYEAR" Type="int" Nullable="false" />
+          <Property Name="PAYMENTDATE" Type="date" Nullable="false" />
+          <Property Name="CHECKNUMBER" Type="int" />
+          <Property Name="AMOUNT" Type="real" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PAYMENTTYPE">
+          <Key>
+            <PropertyRef Name="PAYMENTTYPEID" />
+          </Key>
+          <Property Name="PAYMENTTYPEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FAMILYID" Type="int" Nullable="false" />
+          <Property Name="KINDID" Type="int" Nullable="false" />
+          <Property Name="LASTNAME" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="BIRTHDATE" Type="date" />
+          <Property Name="HOURLYRATE" Type="real" />
+        </EntityType>
+        <EntityType Name="PERSON_GYMGROUP">
+          <Key>
+            <PropertyRef Name="PERSON_GYMGROUP_ID" />
+          </Key>
+          <Property Name="PERSON_GYMGROUP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PERSONID" Type="int" Nullable="false" />
+          <Property Name="GYMGROUPID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PHONE">
+          <Key>
+            <PropertyRef Name="PHONEID" />
+          </Key>
+          <Property Name="PHONEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FAMILYID" Type="int" Nullable="false" />
+          <Property Name="PHONENUMBER" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="fk_DISCOUNT_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="DISCOUNT" Type="Self.DISCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="DISCOUNT">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DOCUMENT_DOCUMENTTYPE">
+          <End Role="DOCUMENTTYPE" Type="Self.DOCUMENTTYPE" Multiplicity="1" />
+          <End Role="DOCUMENT" Type="Self.DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCUMENTTYPE">
+              <PropertyRef Name="DOCUMENTTYPEID" />
+            </Principal>
+            <Dependent Role="DOCUMENT">
+              <PropertyRef Name="DOCUMENTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DOCUMENT_PERSON">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="DOCUMENT" Type="Self.DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="PERSONID" />
+            </Principal>
+            <Dependent Role="DOCUMENT">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PAYMENT_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PAYMENT_PAYMENTTYPE">
+          <End Role="PAYMENTTYPE" Type="Self.PAYMENTTYPE" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENTTYPE">
+              <PropertyRef Name="PAYMENTTYPEID" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="PAYMENTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="PERSON">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_GYMGROUP_GYMGROUP">
+          <End Role="GYMGROUP" Type="Self.GYMGROUP" Multiplicity="1" />
+          <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GYMGROUP">
+              <PropertyRef Name="GYMGROUPID" />
+            </Principal>
+            <Dependent Role="PERSON_GYMGROUP">
+              <PropertyRef Name="GYMGROUPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_GYMGROUP_PERSON">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="PERSONID" />
+            </Principal>
+            <Dependent Role="PERSON_GYMGROUP">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_KIND">
+          <End Role="KIND" Type="Self.KIND" Multiplicity="1" />
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIND">
+              <PropertyRef Name="KINDID" />
+            </Principal>
+            <Dependent Role="PERSON">
+              <PropertyRef Name="KINDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHONE_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="PHONE" Type="Self.PHONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="PHONE">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EGOModelStoreContainer">
+          <EntitySet Name="DISCOUNT" EntityType="Self.DISCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCUMENT" EntityType="Self.DOCUMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCUMENTTYPE" EntityType="Self.DOCUMENTTYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAMILY" EntityType="Self.FAMILY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GYMGROUP" EntityType="Self.GYMGROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KIND" EntityType="Self.KIND" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMENT" EntityType="Self.PAYMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PAYMENTTYPE" EntityType="Self.PAYMENTTYPE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSON_GYMGROUP" EntityType="Self.PERSON_GYMGROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PHONE" EntityType="Self.PHONE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_DISCOUNT_FAMILY" Association="Self.fk_DISCOUNT_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="DISCOUNT" EntitySet="DISCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DOCUMENT_DOCUMENTTYPE" Association="Self.fk_DOCUMENT_DOCUMENTTYPE">
+            <End Role="DOCUMENTTYPE" EntitySet="DOCUMENTTYPE" />
+            <End Role="DOCUMENT" EntitySet="DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DOCUMENT_PERSON" Association="Self.fk_DOCUMENT_PERSON">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="DOCUMENT" EntitySet="DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PAYMENT_FAMILY" Association="Self.fk_PAYMENT_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PAYMENT_PAYMENTTYPE" Association="Self.fk_PAYMENT_PAYMENTTYPE">
+            <End Role="PAYMENTTYPE" EntitySet="PAYMENTTYPE" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_FAMILY" Association="Self.fk_PERSON_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="PERSON" EntitySet="PERSON" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_GYMGROUP_GYMGROUP" Association="Self.fk_PERSON_GYMGROUP_GYMGROUP">
+            <End Role="GYMGROUP" EntitySet="GYMGROUP" />
+            <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_GYMGROUP_PERSON" Association="Self.fk_PERSON_GYMGROUP_PERSON">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_KIND" Association="Self.fk_PERSON_KIND">
+            <End Role="KIND" EntitySet="KIND" />
+            <End Role="PERSON" EntitySet="PERSON" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHONE_FAMILY" Association="Self.fk_PHONE_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="PHONE" EntitySet="PHONE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EGOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DISCOUNT">
+          <Key>
+            <PropertyRef Name="DISCOUNTID" />
+          </Key>
+          <Property Name="DISCOUNTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FAMILYID" Type="Int32" Nullable="false" />
+          <Property Name="DISCOUNTYEAR" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="AMOUNT" Type="Single" Nullable="false" />
+          <NavigationProperty Name="FAMILY" Relationship="Self.fk_DISCOUNT_FAMILY" FromRole="DISCOUNT" ToRole="FAMILY" />
+        </EntityType>
+        <EntityType Name="DOCUMENT">
+          <Key>
+            <PropertyRef Name="DOCUMENTID" />
+          </Key>
+          <Property Name="DOCUMENTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DOCUMENTTYPEID" Type="Int32" Nullable="false" />
+          <Property Name="PERSONID" Type="Int32" Nullable="false" />
+          <Property Name="DOCUMENTYEAR" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DOCUMENTTYPE" Relationship="Self.fk_DOCUMENT_DOCUMENTTYPE" FromRole="DOCUMENT" ToRole="DOCUMENTTYPE" />
+          <NavigationProperty Name="PERSON" Relationship="Self.fk_DOCUMENT_PERSON" FromRole="DOCUMENT" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="DOCUMENTTYPE">
+          <Key>
+            <PropertyRef Name="DOCUMENTTYPEID" />
+          </Key>
+          <Property Name="DOCUMENTTYPEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DOCUMENTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MADATORY" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="DOCUMENT" Relationship="Self.fk_DOCUMENT_DOCUMENTTYPE" FromRole="DOCUMENTTYPE" ToRole="DOCUMENT" />
+        </EntityType>
+        <EntityType Name="FAMILY">
+          <Key>
+            <PropertyRef Name="FAMILYID" />
+          </Key>
+          <Property Name="FAMILYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LASTNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DISCOUNT" Relationship="Self.fk_DISCOUNT_FAMILY" FromRole="FAMILY" ToRole="DISCOUNT" />
+          <NavigationProperty Name="PAYMENT" Relationship="Self.fk_PAYMENT_FAMILY" FromRole="FAMILY" ToRole="PAYMENT" />
+          <NavigationProperty Name="PERSON" Relationship="Self.fk_PERSON_FAMILY" FromRole="FAMILY" ToRole="PERSON" />
+          <NavigationProperty Name="PHONE" Relationship="Self.fk_PHONE_FAMILY" FromRole="FAMILY" ToRole="PHONE" />
+        </EntityType>
+        <EntityType Name="GYMGROUP">
+          <Key>
+            <PropertyRef Name="GYMGROUPID" />
+          </Key>
+          <Property Name="GYMGROUPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GYMGROUPNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NUMBEROFHOURS" Type="Single" Nullable="false" />
+          <Property Name="GYMYEAR" Type="Int32" Nullable="false" />
+          <Property Name="YEARPRICE" Type="Single" Nullable="false" />
+          <NavigationProperty Name="PERSON_GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_GYMGROUP" FromRole="GYMGROUP" ToRole="PERSON_GYMGROUP" />
+        </EntityType>
+        <EntityType Name="KIND">
+          <Key>
+            <PropertyRef Name="KINDID" />
+          </Key>
+          <Property Name="KINDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KINDNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PERSON" Relationship="Self.fk_PERSON_KIND" FromRole="KIND" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="PAYMENT">
+          <Key>
+            <PropertyRef Name="PAYMENTID" />
+          </Key>
+          <Property Name="PAYMENTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PAYMENTTYPEID" Type="Int32" Nullable="false" />
+          <Property Name="FAMILYID" Type="Int32" Nullable="false" />
+          <Property Name="GYMYEAR" Type="Int32" Nullable="false" />
+          <Property Name="PAYMENTDATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CHECKNUMBER" Type="Int32" />
+          <Property Name="AMOUNT" Type="Single" Nullable="false" />
+          <NavigationProperty Name="FAMILY" Relationship="Self.fk_PAYMENT_FAMILY" FromRole="PAYMENT" ToRole="FAMILY" />
+          <NavigationProperty Name="PAYMENTTYPE" Relationship="Self.fk_PAYMENT_PAYMENTTYPE" FromRole="PAYMENT" ToRole="PAYMENTTYPE" />
+        </EntityType>
+        <EntityType Name="PAYMENTTYPE">
+          <Key>
+            <PropertyRef Name="PAYMENTTYPEID" />
+          </Key>
+          <Property Name="PAYMENTTYPEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PAYMENT" Relationship="Self.fk_PAYMENT_PAYMENTTYPE" FromRole="PAYMENTTYPE" ToRole="PAYMENT" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="PERSONID" />
+          </Key>
+          <Property Name="PERSONID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FAMILYID" Type="Int32" Nullable="false" />
+          <Property Name="KINDID" Type="Int32" Nullable="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BIRTHDATE" Type="DateTime" Precision="0" />
+          <Property Name="HOURLYRATE" Type="Single" />
+          <NavigationProperty Name="DOCUMENT" Relationship="Self.fk_DOCUMENT_PERSON" FromRole="PERSON" ToRole="DOCUMENT" />
+          <NavigationProperty Name="FAMILY" Relationship="Self.fk_PERSON_FAMILY" FromRole="PERSON" ToRole="FAMILY" />
+          <NavigationProperty Name="KIND" Relationship="Self.fk_PERSON_KIND" FromRole="PERSON" ToRole="KIND" />
+          <NavigationProperty Name="PERSON_GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_PERSON" FromRole="PERSON" ToRole="PERSON_GYMGROUP" />
+        </EntityType>
+        <EntityType Name="PERSON_GYMGROUP">
+          <Key>
+            <PropertyRef Name="PERSON_GYMGROUP_ID" />
+          </Key>
+          <Property Name="PERSON_GYMGROUP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PERSONID" Type="Int32" Nullable="false" />
+          <Property Name="GYMGROUPID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_GYMGROUP" FromRole="PERSON_GYMGROUP" ToRole="GYMGROUP" />
+          <NavigationProperty Name="PERSON" Relationship="Self.fk_PERSON_GYMGROUP_PERSON" FromRole="PERSON_GYMGROUP" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="PHONE">
+          <Key>
+            <PropertyRef Name="PHONEID" />
+          </Key>
+          <Property Name="PHONEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FAMILYID" Type="Int32" Nullable="false" />
+          <Property Name="PHONENUMBER" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="FAMILY" Relationship="Self.fk_PHONE_FAMILY" FromRole="PHONE" ToRole="FAMILY" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="fk_DISCOUNT_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="DISCOUNT" Type="Self.DISCOUNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="DISCOUNT">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DOCUMENT_DOCUMENTTYPE">
+          <End Role="DOCUMENTTYPE" Type="Self.DOCUMENTTYPE" Multiplicity="1" />
+          <End Role="DOCUMENT" Type="Self.DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOCUMENTTYPE">
+              <PropertyRef Name="DOCUMENTTYPEID" />
+            </Principal>
+            <Dependent Role="DOCUMENT">
+              <PropertyRef Name="DOCUMENTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_DOCUMENT_PERSON">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="DOCUMENT" Type="Self.DOCUMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="PERSONID" />
+            </Principal>
+            <Dependent Role="DOCUMENT">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PAYMENT_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="PERSON">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PHONE_FAMILY">
+          <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
+          <End Role="PHONE" Type="Self.PHONE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAMILY">
+              <PropertyRef Name="FAMILYID" />
+            </Principal>
+            <Dependent Role="PHONE">
+              <PropertyRef Name="FAMILYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_GYMGROUP_GYMGROUP">
+          <End Role="GYMGROUP" Type="Self.GYMGROUP" Multiplicity="1" />
+          <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GYMGROUP">
+              <PropertyRef Name="GYMGROUPID" />
+            </Principal>
+            <Dependent Role="PERSON_GYMGROUP">
+              <PropertyRef Name="GYMGROUPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_KIND">
+          <End Role="KIND" Type="Self.KIND" Multiplicity="1" />
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIND">
+              <PropertyRef Name="KINDID" />
+            </Principal>
+            <Dependent Role="PERSON">
+              <PropertyRef Name="KINDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PAYMENT_PAYMENTTYPE">
+          <End Role="PAYMENTTYPE" Type="Self.PAYMENTTYPE" Multiplicity="1" />
+          <End Role="PAYMENT" Type="Self.PAYMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PAYMENTTYPE">
+              <PropertyRef Name="PAYMENTTYPEID" />
+            </Principal>
+            <Dependent Role="PAYMENT">
+              <PropertyRef Name="PAYMENTTYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PERSON_GYMGROUP_PERSON">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="PERSONID" />
+            </Principal>
+            <Dependent Role="PERSON_GYMGROUP">
+              <PropertyRef Name="PERSONID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EGOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DISCOUNT" EntityType="Self.DISCOUNT" />
+          <EntitySet Name="DOCUMENT" EntityType="Self.DOCUMENT" />
+          <EntitySet Name="DOCUMENTTYPE" EntityType="Self.DOCUMENTTYPE" />
+          <EntitySet Name="FAMILY" EntityType="Self.FAMILY" />
+          <EntitySet Name="GYMGROUP" EntityType="Self.GYMGROUP" />
+          <EntitySet Name="KIND" EntityType="Self.KIND" />
+          <EntitySet Name="PAYMENT" EntityType="Self.PAYMENT" />
+          <EntitySet Name="PAYMENTTYPE" EntityType="Self.PAYMENTTYPE" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" />
+          <EntitySet Name="PERSON_GYMGROUP" EntityType="Self.PERSON_GYMGROUP" />
+          <EntitySet Name="PHONE" EntityType="Self.PHONE" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="fk_DISCOUNT_FAMILY" Association="Self.fk_DISCOUNT_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="DISCOUNT" EntitySet="DISCOUNT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DOCUMENT_DOCUMENTTYPE" Association="Self.fk_DOCUMENT_DOCUMENTTYPE">
+            <End Role="DOCUMENTTYPE" EntitySet="DOCUMENTTYPE" />
+            <End Role="DOCUMENT" EntitySet="DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DOCUMENT_PERSON" Association="Self.fk_DOCUMENT_PERSON">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="DOCUMENT" EntitySet="DOCUMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PAYMENT_FAMILY" Association="Self.fk_PAYMENT_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_FAMILY" Association="Self.fk_PERSON_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="PERSON" EntitySet="PERSON" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PHONE_FAMILY" Association="Self.fk_PHONE_FAMILY">
+            <End Role="FAMILY" EntitySet="FAMILY" />
+            <End Role="PHONE" EntitySet="PHONE" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_GYMGROUP_GYMGROUP" Association="Self.fk_PERSON_GYMGROUP_GYMGROUP">
+            <End Role="GYMGROUP" EntitySet="GYMGROUP" />
+            <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_KIND" Association="Self.fk_PERSON_KIND">
+            <End Role="KIND" EntitySet="KIND" />
+            <End Role="PERSON" EntitySet="PERSON" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PAYMENT_PAYMENTTYPE" Association="Self.fk_PAYMENT_PAYMENTTYPE">
+            <End Role="PAYMENTTYPE" EntitySet="PAYMENTTYPE" />
+            <End Role="PAYMENT" EntitySet="PAYMENT" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PERSON_GYMGROUP_PERSON" Association="Self.fk_PERSON_GYMGROUP_PERSON">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EGOModelStoreContainer" CdmEntityContainer="EGOEntities">
+          <EntitySetMapping Name="DISCOUNT">
+            <EntityTypeMapping TypeName="EGOModel.DISCOUNT">
+              <MappingFragment StoreEntitySet="DISCOUNT">
+                <ScalarProperty Name="DISCOUNTID" ColumnName="DISCOUNTID" />
+                <ScalarProperty Name="FAMILYID" ColumnName="FAMILYID" />
+                <ScalarProperty Name="DISCOUNTYEAR" ColumnName="DISCOUNTYEAR" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCUMENT">
+            <EntityTypeMapping TypeName="EGOModel.DOCUMENT">
+              <MappingFragment StoreEntitySet="DOCUMENT">
+                <ScalarProperty Name="DOCUMENTID" ColumnName="DOCUMENTID" />
+                <ScalarProperty Name="DOCUMENTTYPEID" ColumnName="DOCUMENTTYPEID" />
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="DOCUMENTYEAR" ColumnName="DOCUMENTYEAR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCUMENTTYPE">
+            <EntityTypeMapping TypeName="EGOModel.DOCUMENTTYPE">
+              <MappingFragment StoreEntitySet="DOCUMENTTYPE">
+                <ScalarProperty Name="DOCUMENTTYPEID" ColumnName="DOCUMENTTYPEID" />
+                <ScalarProperty Name="DOCUMENTNAME" ColumnName="DOCUMENTNAME" />
+                <ScalarProperty Name="MADATORY" ColumnName="MADATORY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAMILY">
+            <EntityTypeMapping TypeName="EGOModel.FAMILY">
+              <MappingFragment StoreEntitySet="FAMILY">
+                <ScalarProperty Name="FAMILYID" ColumnName="FAMILYID" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GYMGROUP">
+            <EntityTypeMapping TypeName="EGOModel.GYMGROUP">
+              <MappingFragment StoreEntitySet="GYMGROUP">
+                <ScalarProperty Name="GYMGROUPID" ColumnName="GYMGROUPID" />
+                <ScalarProperty Name="GYMGROUPNAME" ColumnName="GYMGROUPNAME" />
+                <ScalarProperty Name="NUMBEROFHOURS" ColumnName="NUMBEROFHOURS" />
+                <ScalarProperty Name="GYMYEAR" ColumnName="GYMYEAR" />
+                <ScalarProperty Name="YEARPRICE" ColumnName="YEARPRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KIND">
+            <EntityTypeMapping TypeName="EGOModel.KIND">
+              <MappingFragment StoreEntitySet="KIND">
+                <ScalarProperty Name="KINDID" ColumnName="KINDID" />
+                <ScalarProperty Name="KINDNAME" ColumnName="KINDNAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMENT">
+            <EntityTypeMapping TypeName="EGOModel.PAYMENT">
+              <MappingFragment StoreEntitySet="PAYMENT">
+                <ScalarProperty Name="PAYMENTID" ColumnName="PAYMENTID" />
+                <ScalarProperty Name="PAYMENTTYPEID" ColumnName="PAYMENTTYPEID" />
+                <ScalarProperty Name="FAMILYID" ColumnName="FAMILYID" />
+                <ScalarProperty Name="GYMYEAR" ColumnName="GYMYEAR" />
+                <ScalarProperty Name="PAYMENTDATE" ColumnName="PAYMENTDATE" />
+                <ScalarProperty Name="CHECKNUMBER" ColumnName="CHECKNUMBER" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PAYMENTTYPE">
+            <EntityTypeMapping TypeName="EGOModel.PAYMENTTYPE">
+              <MappingFragment StoreEntitySet="PAYMENTTYPE">
+                <ScalarProperty Name="PAYMENTTYPEID" ColumnName="PAYMENTTYPEID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSON">
+            <EntityTypeMapping TypeName="EGOModel.PERSON">
+              <MappingFragment StoreEntitySet="PERSON">
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="FAMILYID" ColumnName="FAMILYID" />
+                <ScalarProperty Name="KINDID" ColumnName="KINDID" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+                <ScalarProperty Name="HOURLYRATE" ColumnName="HOURLYRATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSON_GYMGROUP">
+            <EntityTypeMapping TypeName="EGOModel.PERSON_GYMGROUP">
+              <MappingFragment StoreEntitySet="PERSON_GYMGROUP">
+                <ScalarProperty Name="PERSON_GYMGROUP_ID" ColumnName="PERSON_GYMGROUP_ID" />
+                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
+                <ScalarProperty Name="GYMGROUPID" ColumnName="GYMGROUPID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PHONE">
+            <EntityTypeMapping TypeName="EGOModel.PHONE">
+              <MappingFragment StoreEntitySet="PHONE">
+                <ScalarProperty Name="PHONEID" ColumnName="PHONEID" />
+                <ScalarProperty Name="FAMILYID" ColumnName="FAMILYID" />
+                <ScalarProperty Name="PHONENUMBER" ColumnName="PHONENUMBER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EGOModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
