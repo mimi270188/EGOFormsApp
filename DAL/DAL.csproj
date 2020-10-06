@@ -100,22 +100,23 @@
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sysdiagrams.cs">
+    <Compile Include="TRANSLATION.cs">
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="EGOModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EGOModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="EGOModel.edmx.diagram">
       <DependentUpon>EGOModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EGOModel.Context.tt">
@@ -128,9 +129,6 @@
       <DependentUpon>EGOModel.edmx</DependentUpon>
       <LastGenOutput>EGOModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

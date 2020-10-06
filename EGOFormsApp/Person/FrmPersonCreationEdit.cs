@@ -14,18 +14,29 @@ namespace EGOFormsApp.Person
 {
     public partial class FrmPersonCreationEdit : Form
     {
-        private List<FAMILY> familys;
-        private List<KIND> kinds;
-        private FAMILY family;
-        public FrmPersonCreationEdit()
+        private List<FAMILY> _familys;
+        private List<KIND> _kinds;
+        private PERSON _person;
+        private bool _isUpdating = false;
+        public FrmPersonCreationEdit(string FrmName = "Personn")
         {
             InitializeComponent();
+            this.Text = FrmName;
         }
 
-        public FrmPersonCreationEdit(FAMILY _family)
+        public FrmPersonCreationEdit(PERSON person, string FrmName = "Personn")
         {
             InitializeComponent();
-            family = _family;
+            _person = person;
+            _isUpdating = true;
+
+            this.Text = FrmName;
+            textBoxLastName.Text = person.LASTNAME;
+            textBoxFirstName.Text = person.FIRSTNAME;
+            dateTimePickerBirthDate.Value = (DateTime)person.BIRTHDATE;
+            numericUpDownHourlyRate.Value = (decimal)person.HOURLYRATE;
+
+            FillComboBox();
         }
 
         private void FrmPersonCreationEdit_Load(object sender, EventArgs e)
@@ -40,21 +51,20 @@ namespace EGOFormsApp.Person
                 EGOEntities egoEntities = new EGOEntities();
                 PERSON person = new PERSON();
 
-                if (family != null)
+                if (_person == null)
                 {
-                    person.FAMILYID = family.FAMILYID;
+                    person.FAMILYID = _familys[comboBoxFamily.SelectedIndex].FAMILYID;
                 }
-                else
-                {
-                    person.FAMILYID = familys[comboBoxFamily.SelectedIndex].FAMILYID;
-                }
-                person.KINDID = kinds[comboBoxKind.SelectedIndex].KINDID;
+                person.KINDID = _kinds[comboBoxKind.SelectedIndex].KINDID;
                 person.LASTNAME = textBoxLastName.Text;
                 person.FIRSTNAME = textBoxFirstName.Text;
                 person.BIRTHDATE = dateTimePickerBirthDate.Value;
                 person.HOURLYRATE = (float)numericUpDownHourlyRate.Value;
 
-                egoEntities.PERSON.Add(person);
+                if (!_isUpdating)
+                {
+                    egoEntities.PERSON.Add(person);
+                }
                 egoEntities.SaveChanges();
 
                 MessageBox.Show("Enregistrer");
@@ -85,38 +95,38 @@ namespace EGOFormsApp.Person
             comboBoxKind.Text = string.Empty;
 
             EGOEntities egoEntities = new EGOEntities();
-            if (family != null)
+
+            _familys = egoEntities.FAMILY.ToList();
+            int i = 0;
+            foreach (var family in _familys)
             {
                 ComboboxItem item = new ComboboxItem();
                 item.Text = family.LASTNAME + " - " + family.ADDRESS + " " + family.ZIPCODE + " " + family.CITY;
                 item.Value = family.FAMILYID;
 
                 comboBoxFamily.Items.Add(item);
-                comboBoxFamily.SelectedIndex = 0;
-            }
-            else
-            {
-                familys = egoEntities.FAMILY.ToList();
-
-                foreach (var family in familys)
+                if (_person != null && family.FAMILYID == _person.FAMILYID)
                 {
-                    ComboboxItem item = new ComboboxItem();
-                    item.Text = family.LASTNAME + " - " + family.ADDRESS + " " + family.ZIPCODE + " " + family.CITY;
-                    item.Value = family.FAMILYID;
-
-                    comboBoxFamily.Items.Add(item);
+                    comboBoxFamily.SelectedIndex = i;
                 }
+                i++;
             }
+            
 
-            kinds = egoEntities.KIND.ToList();
-
-            foreach (var kind in kinds)
+            _kinds = egoEntities.KIND.ToList();
+            i = 0;
+            foreach (var kind in _kinds)
             {
                 ComboboxItem item = new ComboboxItem();
                 item.Text = kind.KINDNAME;
                 item.Value = kind.KINDID;
 
                 comboBoxKind.Items.Add(item);
+                if (_person != null && kind.KINDID == _person.KINDID)
+                {
+                    comboBoxKind.SelectedIndex = i;
+                }
+                i++;
             }
         }
     }

@@ -45,35 +45,36 @@
             this.paiementsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(80, 515);
+            this.menuStrip1.Size = new System.Drawing.Size(126, 515);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // familleToolStripMenuItem
             // 
             this.familleToolStripMenuItem.Name = "familleToolStripMenuItem";
-            this.familleToolStripMenuItem.Size = new System.Drawing.Size(67, 19);
+            this.familleToolStripMenuItem.Size = new System.Drawing.Size(113, 19);
             this.familleToolStripMenuItem.Text = "Famille";
             this.familleToolStripMenuItem.Click += new System.EventHandler(this.familleToolStripMenuItem_Click);
             // 
             // groupesToolStripMenuItem
             // 
             this.groupesToolStripMenuItem.Name = "groupesToolStripMenuItem";
-            this.groupesToolStripMenuItem.Size = new System.Drawing.Size(67, 19);
+            this.groupesToolStripMenuItem.Size = new System.Drawing.Size(113, 19);
             this.groupesToolStripMenuItem.Text = "Groupes";
+            this.groupesToolStripMenuItem.Click += new System.EventHandler(this.groupesToolStripMenuItem_Click);
             // 
             // paiementsToolStripMenuItem
             // 
             this.paiementsToolStripMenuItem.Name = "paiementsToolStripMenuItem";
-            this.paiementsToolStripMenuItem.Size = new System.Drawing.Size(67, 19);
+            this.paiementsToolStripMenuItem.Size = new System.Drawing.Size(113, 19);
             this.paiementsToolStripMenuItem.Text = "Paiements";
             // 
             // pContainer
             // 
             this.pContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pContainer.Location = new System.Drawing.Point(80, 0);
+            this.pContainer.Location = new System.Drawing.Point(126, 0);
             this.pContainer.Name = "pContainer";
-            this.pContainer.Size = new System.Drawing.Size(976, 515);
+            this.pContainer.Size = new System.Drawing.Size(930, 515);
             this.pContainer.TabIndex = 1;
             // 
             // MainForm

@@ -8,33 +8,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL;
+using EGOFormsApp._Phone;
 using EGOFormsApp.Person;
 using EGOFormsApp.ViewModel.Person;
+using EGOFormsApp.ViewModel.Phone;
 
 namespace EGOFormsApp.Family
 {
     public partial class FrmFamilyCreationEdit : Form
     {
-        public bool isUpdating = false;
-        private FAMILY family;
+        public bool _isUpdating = false;
+        private FAMILY _family;
+
         public FrmFamilyCreationEdit(string FrmName = "Famille")
         {
             InitializeComponent();
-
             this.Text = FrmName;
-            //textBoxAddress.Text = "35 RUE DE L ABREUVOIR";
-            //textBoxCity.Text = "VAUREAL";
-            //textBoxEmail.Text = "grandiere.michael@hotmail.fr";
-            //textBoxLastName.Text = "GRANDIERE";
-            //textBoxZipCode.Text= "95490";
-            //textBoxPhone1.Text = "06.37.80.38.12";
-            //textBoxPhone2.Text = "06.16.15.85.79";
         }
 
-        public FrmFamilyCreationEdit(FAMILY _family, string FrmName = "Famille")
+        public FrmFamilyCreationEdit(FAMILY family, string FrmName = "Famille")
         {
             InitializeComponent();
-            family = _family;
+            _family = family;
             this.Text = FrmName;
             textBoxAddress.Text = family.ADDRESS;
             textBoxCity.Text = family.CITY;
@@ -49,19 +44,19 @@ namespace EGOFormsApp.Family
         {
             try
             {
-                FAMILY _family = new FAMILY();
+                FAMILY family = new FAMILY();
                 List<PHONE> phones = new List<PHONE>();
                 EGOEntities egoEntities = new EGOEntities();
 
-                _family.ADDRESS = textBoxAddress.Text;
-                _family.CITY = textBoxCity.Text;
-                _family.EMAIL = textBoxEmail.Text;
-                _family.LASTNAME = textBoxLastName.Text;
-                _family.ZIPCODE = textBoxZipCode.Text;
+                family.ADDRESS = textBoxAddress.Text;
+                family.CITY = textBoxCity.Text;
+                family.EMAIL = textBoxEmail.Text;
+                family.LASTNAME = textBoxLastName.Text;
+                family.ZIPCODE = textBoxZipCode.Text;
 
-                egoEntities.FAMILY.Add(_family);
+                egoEntities.FAMILY.Add(family);
 
-                family = _family;
+                _family = family;
 
                 egoEntities.SaveChanges();
 
@@ -89,17 +84,32 @@ namespace EGOFormsApp.Family
 
         private void buttonPersonAdd_Click(object sender, EventArgs e)
         {
-            FrmPersonCreationEdit frmPersonCreationEdit = new FrmPersonCreationEdit(family);
+            FrmPersonCreationEdit frmPersonCreationEdit = new FrmPersonCreationEdit("Personne - Création");
             frmPersonCreationEdit.ShowDialog();
             EGOEntities egoEntities = new EGOEntities();
-            family.PERSON = egoEntities.PERSON.Where(x => x.FAMILYID == family.FAMILYID).ToList();
-            DataGridViewRefresh(family);
+            _family.PERSON = egoEntities.PERSON.Where(x => x.FAMILYID == _family.FAMILYID).ToList();
+            DataGridViewRefresh(_family);
         }
 
         private void DataGridViewRefresh(FAMILY family)
         {
             PersonSearchView personSearchView = new PersonSearchView(family.PERSON.ToList());
-            dataGridView1.DataSource = personSearchView.PersonSearchViews;
+            dataGridViewPerson.DataSource = personSearchView.PersonSearchViews;
+
+            PhoneSearchView phoneSearchView = new PhoneSearchView(family.PHONE.ToList());
+            dataGridViewPhone.DataSource = phoneSearchView.PhoneSearchViews;
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            FrmPersonCreationEdit frmPersonCreationEdit = new FrmPersonCreationEdit(_family.PERSON.ToList()[dataGridViewPerson.CurrentCell.RowIndex], "Personne - Modification");
+            frmPersonCreationEdit.ShowDialog();
+        }
+
+        private void buttonPhoneAdd_Click(object sender, EventArgs e)
+        {
+            FrmPhoneCreationEdit frmPhoneCreationEdit = new FrmPhoneCreationEdit(_family, "Téléphone - Modification");
+            frmPhoneCreationEdit.ShowDialog();
         }
     }
 }

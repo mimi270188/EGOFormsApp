@@ -15,7 +15,6 @@ namespace EGOFormsApp.Family
     public partial class FrmFamilySearch : Form
     {
         public string FrmName = string.Empty;
-        private int isLoad = 0;
         private List<FAMILY> familys = new List<FAMILY>();
         public FrmFamilySearch(string FrmName = "Famille")
         {
@@ -36,17 +35,12 @@ namespace EGOFormsApp.Family
             dataGridView1.Visible = true;
         }
 
-        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            isLoad++;
-            if (isLoad >= 4)
-            {
-                isLoad = 0;
                 dataGridView1.Visible = false;
                 FrmFamilyCreationEdit frmFamilyCreationEdit = new FrmFamilyCreationEdit(familys[dataGridView1.CurrentCell.RowIndex], "Famille - Modification") { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
                 this.pContainerFamilySearch.Controls.Add(frmFamilyCreationEdit);
                 frmFamilyCreationEdit.Show();
-            }
         }
     }
 }

@@ -43,14 +43,20 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
             this.buttonPersonAdd = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.pContainer = new System.Windows.Forms.Panel();
+            this.dataGridViewPerson = new System.Windows.Forms.DataGridView();
             this.tabPagePhone = new System.Windows.Forms.TabPage();
+            this.buttonPhoneAdd = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridViewPhone = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPagePerson.SuspendLayout();
+            this.pContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPerson)).BeginInit();
+            this.tabPagePhone.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhone)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonSaveFamily
@@ -181,7 +187,7 @@
             // tabPagePerson
             // 
             this.tabPagePerson.Controls.Add(this.buttonPersonAdd);
-            this.tabPagePerson.Controls.Add(this.panel1);
+            this.tabPagePerson.Controls.Add(this.pContainer);
             this.tabPagePerson.Location = new System.Drawing.Point(4, 22);
             this.tabPagePerson.Name = "tabPagePerson";
             this.tabPagePerson.Padding = new System.Windows.Forms.Padding(3);
@@ -200,26 +206,29 @@
             this.buttonPersonAdd.UseVisualStyleBackColor = true;
             this.buttonPersonAdd.Click += new System.EventHandler(this.buttonPersonAdd_Click);
             // 
-            // panel1
+            // pContainer
             // 
-            this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(0, 42);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(768, 198);
-            this.panel1.TabIndex = 0;
+            this.pContainer.Controls.Add(this.dataGridViewPerson);
+            this.pContainer.Location = new System.Drawing.Point(0, 42);
+            this.pContainer.Name = "pContainer";
+            this.pContainer.Size = new System.Drawing.Size(768, 198);
+            this.pContainer.TabIndex = 0;
             // 
-            // dataGridView1
+            // dataGridViewPerson
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(768, 198);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridViewPerson.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewPerson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPerson.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPerson.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewPerson.Name = "dataGridViewPerson";
+            this.dataGridViewPerson.Size = new System.Drawing.Size(768, 198);
+            this.dataGridViewPerson.TabIndex = 0;
+            this.dataGridViewPerson.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // tabPagePhone
             // 
+            this.tabPagePhone.Controls.Add(this.buttonPhoneAdd);
+            this.tabPagePhone.Controls.Add(this.panel1);
             this.tabPagePhone.Location = new System.Drawing.Point(4, 22);
             this.tabPagePhone.Name = "tabPagePhone";
             this.tabPagePhone.Padding = new System.Windows.Forms.Padding(3);
@@ -227,6 +236,34 @@
             this.tabPagePhone.TabIndex = 1;
             this.tabPagePhone.Text = "Téléphone";
             this.tabPagePhone.UseVisualStyleBackColor = true;
+            // 
+            // buttonPhoneAdd
+            // 
+            this.buttonPhoneAdd.Location = new System.Drawing.Point(6, 3);
+            this.buttonPhoneAdd.Name = "buttonPhoneAdd";
+            this.buttonPhoneAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonPhoneAdd.TabIndex = 3;
+            this.buttonPhoneAdd.Text = "Ajouter";
+            this.buttonPhoneAdd.UseVisualStyleBackColor = true;
+            this.buttonPhoneAdd.Click += new System.EventHandler(this.buttonPhoneAdd_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.dataGridViewPhone);
+            this.panel1.Location = new System.Drawing.Point(0, 39);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(768, 198);
+            this.panel1.TabIndex = 2;
+            // 
+            // dataGridViewPhone
+            // 
+            this.dataGridViewPhone.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewPhone.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPhone.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPhone.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewPhone.Name = "dataGridViewPhone";
+            this.dataGridViewPhone.Size = new System.Drawing.Size(768, 198);
+            this.dataGridViewPhone.TabIndex = 0;
             // 
             // FrmFamilyCreationEdit
             // 
@@ -241,8 +278,11 @@
             this.groupBox1.PerformLayout();
             this.tabControl.ResumeLayout(false);
             this.tabPagePerson.ResumeLayout(false);
+            this.pContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPerson)).EndInit();
+            this.tabPagePhone.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPhone)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -263,8 +303,11 @@
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPagePerson;
         private System.Windows.Forms.Button buttonPersonAdd;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pContainer;
         private System.Windows.Forms.TabPage tabPagePhone;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewPerson;
+        private System.Windows.Forms.Button buttonPhoneAdd;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dataGridViewPhone;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EGOFormsApp.Family;
+using EGOFormsApp.Group;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,13 @@ namespace EGOFormsApp
             FrmFamily frmFamily = new FrmFamily() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
             this.pContainer.Controls.Add(frmFamily);
             frmFamily.Show();
+        }
+
+        private void groupesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmGroup frmGroup = new FrmGroup() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            this.pContainer.Controls.Add(frmGroup);
+            frmGroup.Show();
         }
     }
 }
