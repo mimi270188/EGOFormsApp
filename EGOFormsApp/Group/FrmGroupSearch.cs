@@ -35,7 +35,7 @@ namespace EGOFormsApp.Group
             }
             else
             {
-                gymGroups = egoEntities.GYMGROUP.Where(x => x.GYMYEAR == gymYear).ToList();
+                gymGroups = egoEntities.GYMGROUP.Where(x => x.GYMGROUPYEAR == gymYear).ToList();
             }
             GymGroupSearchView gymGroupSearchView = new GymGroupSearchView(gymGroups);
             dataGridViewGymGroup.DataSource = gymGroupSearchView.GymGroupSearchViews;

@@ -96,6 +96,9 @@
     <Compile Include="PERSON_GYMGROUP.cs">
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PERSON_KIND.cs">
+      <DependentUpon>EGOModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PHONE.cs">
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
@@ -121,8 +124,8 @@
   <ItemGroup>
     <Content Include="EGOModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EGOModel.Context.cs</LastGenOutput>
       <DependentUpon>EGOModel.edmx</DependentUpon>
+      <LastGenOutput>EGOModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="EGOModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

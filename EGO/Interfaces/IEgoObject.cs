@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace EGO.Interfaces
 {
     interface IEgoObject
     {
-        void CreateEditForm(Form frm, Type type);
-        void SearchFrom(Form frm);
+        Type _type { get; set; }
+        void CreateEditForm(Form frm, EGOEntities _egoEntities, object obj = null);
     }
 }

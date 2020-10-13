@@ -55,7 +55,6 @@ namespace EGOFormsApp.Person
                 {
                     person.FAMILYID = _familys[comboBoxFamily.SelectedIndex].FAMILYID;
                 }
-                person.KINDID = _kinds[comboBoxKind.SelectedIndex].KINDID;
                 person.LASTNAME = textBoxLastName.Text;
                 person.FIRSTNAME = textBoxFirstName.Text;
                 person.BIRTHDATE = dateTimePickerBirthDate.Value;
@@ -111,23 +110,7 @@ namespace EGOFormsApp.Person
                 }
                 i++;
             }
-            
-
-            _kinds = egoEntities.KIND.ToList();
-            i = 0;
-            foreach (var kind in _kinds)
-            {
-                ComboboxItem item = new ComboboxItem();
-                item.Text = kind.KINDNAME;
-                item.Value = kind.KINDID;
-
-                comboBoxKind.Items.Add(item);
-                if (_person != null && kind.KINDID == _person.KINDID)
-                {
-                    comboBoxKind.SelectedIndex = i;
-                }
-                i++;
-            }
+           
         }
     }
 }

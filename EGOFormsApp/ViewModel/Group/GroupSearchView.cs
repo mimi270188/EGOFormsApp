@@ -13,7 +13,7 @@ namespace EGOFormsApp.ViewModel.Group
         {
             this.GYMGROUPNAME = gymGroup.GYMGROUPNAME;
             this.NUMBEROFHOURS = gymGroup.NUMBEROFHOURS;
-            this.GYMYEAR = gymGroup.GYMYEAR;
+            this.GYMYEAR = gymGroup.GYMGROUPYEAR;
             this.YEARPRICE = gymGroup.YEARPRICE;
         }
 

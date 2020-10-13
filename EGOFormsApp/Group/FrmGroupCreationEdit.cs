@@ -30,7 +30,7 @@ namespace EGOFormsApp.Group
             _gymGroup = gymGroup;
 
             textBoxGroupName.Text = gymGroup.GYMGROUPNAME;
-            numericUpDownGymYear.Value = gymGroup.GYMYEAR;
+            numericUpDownGymYear.Value = gymGroup.GYMGROUPYEAR;
             numericUpDownNumberOfHours.Value = (decimal)gymGroup.NUMBEROFHOURS;
             numericUpDownYearPrice.Value = (decimal)gymGroup.YEARPRICE;
         }
@@ -43,7 +43,7 @@ namespace EGOFormsApp.Group
                 GYMGROUP gymGroup = new GYMGROUP();
 
                 gymGroup.GYMGROUPNAME = textBoxGroupName.Text;
-                gymGroup.GYMYEAR = (int)numericUpDownGymYear.Value;
+                gymGroup.GYMGROUPYEAR = (int)numericUpDownGymYear.Value;
                 gymGroup.NUMBEROFHOURS = (float)numericUpDownNumberOfHours.Value;
                 gymGroup.YEARPRICE = (float)numericUpDownYearPrice.Value;
 

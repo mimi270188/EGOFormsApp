@@ -56,9 +56,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Control\ComboboxItem.cs" />
     <Compile Include="Common\Translation.cs" />
     <Compile Include="Container\EgoObject.cs" />
-    <Compile Include="Controller\EgoFamille.cs" />
+    <Compile Include="Controller\EgoFamily.cs" />
+    <Compile Include="Controller\EgoGymGroup.cs" />
+    <Compile Include="Controller\EgoDocument.cs" />
+    <Compile Include="Controller\EgoKind.cs" />
+    <Compile Include="Controller\EgoPerson.cs" />
     <Compile Include="Interfaces\IEgoObject.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -68,6 +73,48 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\Document\DocumentSearchView.cs" />
+    <Compile Include="ViewModel\Family\FamilySearchView.cs" />
+    <Compile Include="ViewModel\Group\GroupSearchView.cs" />
+    <Compile Include="ViewModel\Kind\KindSearchView.cs" />
+    <Compile Include="ViewModel\Person\PersonSearchView.cs" />
+    <Compile Include="ViewModel\Phone\PhoneSearchView.cs" />
+    <Compile Include="View\Document\FrmDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Document\FrmDocument.Designer.cs">
+      <DependentUpon>FrmDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Family\FrmFamily.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Family\FrmFamily.Designer.cs">
+      <DependentUpon>FrmFamily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\GymGroup\FrmGymGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GymGroup\FrmGymGroup.Designer.cs">
+      <DependentUpon>FrmGymGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\GymGroup\FrmGymGroupBind.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GymGroup\FrmGymGroupBind.Designer.cs">
+      <DependentUpon>FrmGymGroupBind.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Kind\FrmKind.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Kind\FrmKind.Designer.cs">
+      <DependentUpon>FrmKind.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Person\FrmPerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Person\FrmPerson.Designer.cs">
+      <DependentUpon>FrmPerson.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,7 +127,29 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Document\FrmDocument.resx">
+      <DependentUpon>FrmDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Family\FrmFamily.resx">
+      <DependentUpon>FrmFamily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GymGroup\FrmGymGroup.resx">
+      <DependentUpon>FrmGymGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GymGroup\FrmGymGroupBind.resx">
+      <DependentUpon>FrmGymGroupBind.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Kind\FrmKind.resx">
+      <DependentUpon>FrmKind.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Person\FrmPerson.resx">
+      <DependentUpon>FrmPerson.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\EGO.ViewModel.Document.DocumentSearchView.datasource" />
+    <None Include="Properties\DataSources\EGO.ViewModel.Family.FamilySearchView.datasource" />
+    <None Include="Properties\DataSources\EGO.ViewModel.Group.GymGroupSearchView.datasource" />
+    <None Include="Properties\DataSources\EGO.ViewModel.Person.PersonSearchView.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,6 +169,7 @@
       <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
