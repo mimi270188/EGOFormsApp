@@ -28,33 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            this.advancedDataGridView1 = new ADGV.AdvancedDataGridView();
+            this.eGODataSet = new test.EGODataSet();
+            this.kINDBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.kINDTableAdapter = new test.EGODataSetTableAdapters.KINDTableAdapter();
+            this.kINDIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kINDNAMEDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eGODataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kINDBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // advancedDataGridView1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(313, 58);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.advancedDataGridView1.AutoGenerateColumns = false;
+            this.advancedDataGridView1.AutoGenerateContextFilters = true;
+            this.advancedDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.advancedDataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.kINDIDDataGridViewTextBoxColumn,
+            this.kINDNAMEDataGridViewTextBoxColumn});
+            this.advancedDataGridView1.DataSource = this.kINDBindingSource;
+            this.advancedDataGridView1.DateWithTime = false;
+            this.advancedDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.advancedDataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.advancedDataGridView1.Name = "advancedDataGridView1";
+            this.advancedDataGridView1.Size = new System.Drawing.Size(800, 450);
+            this.advancedDataGridView1.TabIndex = 0;
+            this.advancedDataGridView1.TimeFilter = false;
+            // 
+            // eGODataSet
+            // 
+            this.eGODataSet.DataSetName = "EGODataSet";
+            this.eGODataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // kINDBindingSource
+            // 
+            this.kINDBindingSource.DataMember = "KIND";
+            this.kINDBindingSource.DataSource = this.eGODataSet;
+            // 
+            // kINDTableAdapter
+            // 
+            this.kINDTableAdapter.ClearBeforeFill = true;
+            // 
+            // kINDIDDataGridViewTextBoxColumn
+            // 
+            this.kINDIDDataGridViewTextBoxColumn.DataPropertyName = "KINDID";
+            this.kINDIDDataGridViewTextBoxColumn.HeaderText = "KINDID";
+            this.kINDIDDataGridViewTextBoxColumn.MinimumWidth = 22;
+            this.kINDIDDataGridViewTextBoxColumn.Name = "kINDIDDataGridViewTextBoxColumn";
+            this.kINDIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.kINDIDDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            // 
+            // kINDNAMEDataGridViewTextBoxColumn
+            // 
+            this.kINDNAMEDataGridViewTextBoxColumn.DataPropertyName = "KINDNAME";
+            this.kINDNAMEDataGridViewTextBoxColumn.HeaderText = "KINDNAME";
+            this.kINDNAMEDataGridViewTextBoxColumn.MinimumWidth = 22;
+            this.kINDNAMEDataGridViewTextBoxColumn.Name = "kINDNAMEDataGridViewTextBoxColumn";
+            this.kINDNAMEDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.advancedDataGridView1);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Load += new System.EventHandler(this.Form2_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.advancedDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eGODataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kINDBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private ADGV.AdvancedDataGridView advancedDataGridView1;
+        private EGODataSet eGODataSet;
+        private System.Windows.Forms.BindingSource kINDBindingSource;
+        private EGODataSetTableAdapters.KINDTableAdapter kINDTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn kINDIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn kINDNAMEDataGridViewTextBoxColumn;
     }
 }

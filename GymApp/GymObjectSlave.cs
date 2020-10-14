@@ -15,37 +15,37 @@ using System.Windows.Forms;
 
 namespace GymApp
 { 
-    public class GymObject<T> where T: class
+    public class GymObjectSlave<T> where T: class
     {
-        Form _Frm;
+        System.Windows.Forms.Form _Frm;
         EGOEntities _egoEntities = new EGOEntities();
         List<string> _tables = new List<string>() { "FAMILYID", "PERSONID" };
         bool _IsUpdating = false;
-        object _MasterObject;
         object _EditObject;
         bool _Master = false;
         List<object> _GymObjects;
-
-        public GymObject(FrmMain frmMain, object slaveObj = null)
+        private object currentObject;
+        public object CurrentObject
         {
-            if (slaveObj == null)
-            {
-                _Master = true;
-            }
-       
-            if (_Master)
+            get
             { 
-                _Frm = new FrmMaster() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
-                HideConrols(_Frm);
-                frmMain.panel1.Controls.Add(_Frm);
-                _Frm.Show();
+                return currentObject;
             }
-            else 
+            set
             {
-                _Frm = new FrmSlave() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
-                SetPanel(frmMain);
-                _Frm.Show();
+                currentObject = value;
+                RefreshDataGridView(_Frm);
             }
+        }
+
+        public GymObjectSlave(FrmMain frmMain, object slaveObj = null)
+        {
+
+            currentObject = slaveObj;
+            _Frm = new FrmSlave() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
+            SetPanel(frmMain);
+            _Frm.Show();
+            
 
 
             SetEvent(_Master, _Frm);
@@ -53,11 +53,11 @@ namespace GymApp
 
             if (_Master)
             {
-                SetChild(frmMain);
+                SetChild(frmMain, _Frm);
             }
         }
 
-        private void HideConrols(Form frm)
+        private void HideConrols(System.Windows.Forms.Form frm)
         {
             switch (typeof(T).Name)
             {
@@ -71,8 +71,7 @@ namespace GymApp
                     break;
             }
         }
-
-        private void RefreshDataGridView(Form frm)
+        private void RefreshDataGridView(System.Windows.Forms.Form frm)
         {
             frm.Controls.OfType<DataGridView>().First().Columns.Clear();
             switch (typeof(T).Name)
@@ -84,10 +83,19 @@ namespace GymApp
                     frm.Controls.OfType<DataGridView>().First().Columns["FAMILYID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(frm);
                     break;
+                case "PERSON":
+                    if (!_Master)
+                    {
+                        int familyId = Convert.ToInt32(Reflection.GetValue(currentObject, "FAMILYID"));
+                        PersonSearchView PersonSearchView = new PersonSearchView(_egoEntities.PERSON.Where(x => x.FAMILYID == familyId).ToList());
+                        frm.Controls.OfType<DataGridView>().First().DataSource = PersonSearchView.PersonSearchViews;
+                        frm.Controls.OfType<DataGridView>().First().Columns["PERSONID"].Visible = false;
+                        AddColumnEditDeleteToDataGridView(frm);
+                    }
+                    break;
             }
 
         }
-
         private void EditById(int id)
         {
             switch (typeof(T).Name)
@@ -95,7 +103,7 @@ namespace GymApp
                 case "FAMILY":
                     FAMILY family = _egoEntities.FAMILY.First(x => x.FAMILYID == id);
                     _EditObject = family;
-                    Form frm = new Form();
+                    System.Windows.Forms.Form frm = new System.Windows.Forms.Form();
                     frm.Text = "Modification";
                     frm.Height = 600;
                     frm.Width = 600;
@@ -106,7 +114,6 @@ namespace GymApp
                     break;
             }
         }
-
         private void RemoveById(int id)
         {
             switch (typeof(T).Name)
@@ -118,20 +125,53 @@ namespace GymApp
             }
             _egoEntities.SaveChanges();
         }
-
-
-
-        private void SetChild(FrmMain frmMain)
+        private void SetChild(FrmMain frmMain, System.Windows.Forms.Form frm)
         {
             switch (typeof(T).Name)
             {
                 case "FAMILY":
                     _GymObjects = new List<object>();
-                    _GymObjects.Add(new GymObject<PERSON>(frmMain));
+                    //_GymObjects.Add(new GymObject<PERSON>(frmMain, GetCurrentObjectById(frm)));
 
                     break;
             }
         }
+        private object GetCurrentObjectById(System.Windows.Forms.Form frm)
+        {
+            DataGridView dataGridView = frm.Controls.OfType<DataGridView>().First();
+            if (dataGridView.Rows.Count == 0)
+            {
+                return null;
+            }
+            int id;
+            if (dataGridView.CurrentCell == null)
+            {
+                id = Convert.ToInt32(dataGridView.Rows[0].Cells[0].Value);
+            }
+            else
+            {
+                id = Convert.ToInt32(dataGridView.Rows[dataGridView.CurrentCell.RowIndex].Cells[2].Value);
+            }
+            switch (typeof(T).Name)
+            {
+                case "FAMILY":
+                    return _egoEntities.FAMILY.First(x => x.FAMILYID == id);             
+                    break;
+            }
+            return null;
+        }
+        private void UpdateChild(int id)
+        {
+            switch (typeof(T).Name)
+            {
+                case "FAMILY":
+                    FAMILY family = _egoEntities.FAMILY.First(x => x.FAMILYID == id);
+                    var GymObjectPerson = _GymObjects[0];
+                    Reflection.SetValue(ref GymObjectPerson, "CurrentObject", family);
+                    break;
+            }
+        }
+
 
         private void SetPanel(FrmMain frmMain)
         {
@@ -145,8 +185,7 @@ namespace GymApp
                 }
             }
         }
-
-        private void SetEvent(bool master, Form frm)
+        private void SetEvent(bool master, System.Windows.Forms.Form frm)
         {
             Button button;
 
@@ -160,8 +199,7 @@ namespace GymApp
             button = (Button)_Frm.Controls.Find("buttonAdd", false).First();
             button.Click += new System.EventHandler(this.buttonAdd_Click);
         }
-
-        private void AddColumnEditDeleteToDataGridView(Form frm)
+        private void AddColumnEditDeleteToDataGridView(System.Windows.Forms.Form frm)
         {
             var dataGridViewButtonColumn = new DataGridViewButtonColumn();
             dataGridViewButtonColumn.Name = "Edit";
@@ -179,10 +217,9 @@ namespace GymApp
 
             frm.Controls.OfType<DataGridView>().First().Columns.Add(dataGridViewButtonColumn);
         }
-
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            Form frm = new Form();
+            System.Windows.Forms.Form frm = new System.Windows.Forms.Form();
             frm.Text = "Création";
             frm.Height = 600;
             frm.Width = 600;
@@ -190,13 +227,11 @@ namespace GymApp
             frm.ShowDialog();
             RefreshDataGridView(_Frm);
         }
-
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             RefreshDataGridView(_Frm);
         }
-
-        public void CreateEditForm(Form frm, object obj = null)
+        public void CreateEditForm(System.Windows.Forms.Form frm, object obj = null)
         {
             int y = 30;
             int x = 10;
@@ -296,9 +331,9 @@ namespace GymApp
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            Save((Form)((Button)sender).Parent);
+            Save((System.Windows.Forms.Form)((Button)sender).Parent);
         }
-        private void Save(Form frm)
+        private void Save(System.Windows.Forms.Form frm)
         {
             try
             {
@@ -390,8 +425,7 @@ namespace GymApp
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        private void RemoveAllControls(Form frm)
+        private void RemoveAllControls(System.Windows.Forms.Form frm)
         {
             List<Control> controls = new List<Control>();
             foreach (Control control in frm.Controls)
@@ -406,13 +440,11 @@ namespace GymApp
                 frm.Controls.Remove(control);
             }
         }
-
         private void textBox_Enter(object sender, EventArgs e)
         {
             var currentTextBox = sender as TextBox;
             currentTextBox.SelectionStart = currentTextBox.TextLength;
         }
-
         private ComboBox CreateCombobox(string propName, ref int x, ref int y, object obj)
         {
             ComboBox comboBox = new ComboBox();
@@ -443,7 +475,6 @@ namespace GymApp
 
             return comboBox;
         }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dataGridView = (DataGridView)sender;
@@ -454,10 +485,11 @@ namespace GymApp
             else if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
             {
                 EditById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[2].Value));
+            }else
+            {
+                UpdateChild(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value));
             }
             RefreshDataGridView(_Frm);
         }
-
-
     }
 }

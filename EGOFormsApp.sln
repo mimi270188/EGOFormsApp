@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymApp", "GymApp\GymApp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{920514CE-4D58-4FD2-AE4A-3A1DFEE1C193}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymApp1", "GymApp1\GymApp1.csproj", "{07A481E8-F91D-4F77-AA74-81E830508550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{920514CE-4D58-4FD2-AE4A-3A1DFEE1C193}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{920514CE-4D58-4FD2-AE4A-3A1DFEE1C193}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{920514CE-4D58-4FD2-AE4A-3A1DFEE1C193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07A481E8-F91D-4F77-AA74-81E830508550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07A481E8-F91D-4F77-AA74-81E830508550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07A481E8-F91D-4F77-AA74-81E830508550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07A481E8-F91D-4F77-AA74-81E830508550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

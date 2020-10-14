@@ -11,7 +11,7 @@ using DAL;
 
 namespace GymApp
 {
-    public partial class FrmMain : Form
+    public partial class FrmMain : System.Windows.Forms.Form
     {
         public FrmMain()
         {
@@ -20,7 +20,7 @@ namespace GymApp
 
         private void PersonToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GymObject<FAMILY> GymObject = new GymApp.GymObject<FAMILY>(this);
+            //GymObject<FAMILY> GymObject = new GymApp.GymObject<FAMILY>(this);
             
         }
     }

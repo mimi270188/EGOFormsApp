@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace GymApp
 {
-    public partial class FrmSlave : Form
+    public partial class FrmSlave : System.Windows.Forms.Form
     {
         public FrmSlave()
         {

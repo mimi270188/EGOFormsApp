@@ -11,6 +11,7 @@ namespace GymApp.ViewModel
     {
         public PersonSearchView(PERSON person)
         {
+            this.PERSONID = person.PERSONID;
             this.LASTNAME = person.LASTNAME;
             this.FIRSTNAME = person.FIRSTNAME;
             this.BIRTHDATE = person.BIRTHDATE;
@@ -26,6 +27,7 @@ namespace GymApp.ViewModel
                 this.PersonSearchViews.Add(personSearchView);
             }
         }
+        public int PERSONID { get; set; }
         public string LASTNAME { get; set; }
         public string FIRSTNAME { get; set; }
         public Nullable<System.DateTime> BIRTHDATE { get; set; }
