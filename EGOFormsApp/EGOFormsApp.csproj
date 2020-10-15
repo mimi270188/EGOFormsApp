@@ -55,99 +55,57 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commun\Control\ComboboxItem.cs" />
-    <Compile Include="Family\FrmFamily.cs">
+    <Compile Include="Common\Control\ComboboxItem.cs" />
+    <Compile Include="Common\Reflection.cs" />
+    <Compile Include="Common\Translation.cs" />
+    <Compile Include="FrmAddEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Family\FrmFamily.Designer.cs">
-      <DependentUpon>FrmFamily.cs</DependentUpon>
+    <Compile Include="FrmAddEdit.Designer.cs">
+      <DependentUpon>FrmAddEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Family\FrmFamilyCreationEdit.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Family\FrmFamilyCreationEdit.Designer.cs">
-      <DependentUpon>FrmFamilyCreationEdit.cs</DependentUpon>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Family\FrmFamilySearch.cs">
+    <Compile Include="FrmMaster.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Family\FrmFamilySearch.Designer.cs">
-      <DependentUpon>FrmFamilySearch.cs</DependentUpon>
+    <Compile Include="FrmMaster.Designer.cs">
+      <DependentUpon>FrmMaster.cs</DependentUpon>
     </Compile>
-    <Compile Include="Group\FrmGroup.cs">
+    <Compile Include="FrmSlave.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Group\FrmGroup.Designer.cs">
-      <DependentUpon>FrmGroup.cs</DependentUpon>
+    <Compile Include="FrmSlave.Designer.cs">
+      <DependentUpon>FrmSlave.cs</DependentUpon>
     </Compile>
-    <Compile Include="Group\FrmGroupCreationEdit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Group\FrmGroupCreationEdit.Designer.cs">
-      <DependentUpon>FrmGroupCreationEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Group\FrmGroupSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Group\FrmGroupSearch.Designer.cs">
-      <DependentUpon>FrmGroupSearch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\FrmPersonCreationEdit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\FrmPersonCreationEdit.Designer.cs">
-      <DependentUpon>FrmPersonCreationEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Person\FrmPersonSearch.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Person\FrmPersonSearch.Designer.cs">
-      <DependentUpon>FrmPersonSearch.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Model\MasterObject.cs" />
+    <Compile Include="Model\ParentObject.cs" />
+    <Compile Include="Model\SlaveObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\Family\FamilySearchView.cs" />
-    <Compile Include="ViewModel\Group\GroupSearchView.cs" />
-    <Compile Include="ViewModel\Person\PersonSearchView.cs" />
-    <Compile Include="ViewModel\Phone\PhoneSearchView.cs" />
-    <Compile Include="¨Phone\FrmPhoneCreationEdit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="¨Phone\FrmPhoneCreationEdit.Designer.cs">
-      <DependentUpon>FrmPhoneCreationEdit.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Family\FrmFamily.resx">
-      <DependentUpon>FrmFamily.cs</DependentUpon>
+    <Compile Include="ViewModel\DiscountSearchView.cs" />
+    <Compile Include="ViewModel\DocumentSearchView.cs" />
+    <Compile Include="ViewModel\FamilySearchView.cs" />
+    <Compile Include="ViewModel\GroupSearchView.cs" />
+    <Compile Include="ViewModel\KindSearchView.cs" />
+    <Compile Include="ViewModel\PaymentSearchView.cs" />
+    <Compile Include="ViewModel\PersonSearchView.cs" />
+    <Compile Include="ViewModel\PhoneSearchView.cs" />
+    <EmbeddedResource Include="FrmAddEdit.resx">
+      <DependentUpon>FrmAddEdit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Family\FrmFamilyCreationEdit.resx">
-      <DependentUpon>FrmFamilyCreationEdit.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Family\FrmFamilySearch.resx">
-      <DependentUpon>FrmFamilySearch.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMaster.resx">
+      <DependentUpon>FrmMaster.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Group\FrmGroup.resx">
-      <DependentUpon>FrmGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Group\FrmGroupCreationEdit.resx">
-      <DependentUpon>FrmGroupCreationEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Group\FrmGroupSearch.resx">
-      <DependentUpon>FrmGroupSearch.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Person\FrmPersonCreationEdit.resx">
-      <DependentUpon>FrmPersonCreationEdit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Person\FrmPersonSearch.resx">
-      <DependentUpon>FrmPersonSearch.cs</DependentUpon>
+    <EmbeddedResource Include="FrmSlave.resx">
+      <DependentUpon>FrmSlave.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -158,9 +116,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="¨Phone\FrmPhoneCreationEdit.resx">
-      <DependentUpon>FrmPhoneCreationEdit.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\EGOFormsApp.ViewModel.Group.GymGroupSearchView.datasource" />
     <None Include="Properties\Settings.settings">

@@ -1,4 +1,4 @@
-﻿namespace GymApp1
+﻿namespace EGOFormsApp
 {
     partial class FrmMain
     {

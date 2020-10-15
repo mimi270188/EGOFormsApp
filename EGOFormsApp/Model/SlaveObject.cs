@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GymApp1.ViewModel;
-using GymApp1.Common;
+using EGOFormsApp.ViewModel;
+using EGOFormsApp.Common;
 using System.Security.Cryptography.X509Certificates;
 
-namespace GymApp1.Model
+namespace EGOFormsApp.Model
 {
     public class SlaveObject<T>: ParentObject<T> where T : class
     {

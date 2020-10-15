@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GymApp1.Model;
+using EGOFormsApp.Model;
 
-namespace GymApp1
+namespace EGOFormsApp
 {
     public partial class FrmMain : Form
     {

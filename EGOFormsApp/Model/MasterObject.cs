@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAL;
-using GymApp1.Common;
-using GymApp1.ViewModel;
+using EGOFormsApp.Common;
+using EGOFormsApp.ViewModel;
 
-namespace GymApp1.Model
+namespace EGOFormsApp.Model
 {
     public class MasterObject<T> : ParentObject<T> where T : class
     {

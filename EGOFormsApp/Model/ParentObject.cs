@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GymApp1.Model
+namespace EGOFormsApp.Model
 {
     public abstract class ParentObject<T> where T : class
     {

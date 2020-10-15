@@ -92,6 +92,8 @@
     <Compile Include="ViewModel\GroupSearchView.cs" />
     <Compile Include="ViewModel\DiscountSearchView.cs" />
     <Compile Include="ViewModel\PaymentSearchView.cs" />
+    <Compile Include="ViewModel\KindSearchView.cs" />
+    <Compile Include="ViewModel\DocumentSearchView.cs" />
     <Compile Include="ViewModel\PersonSearchView.cs" />
     <Compile Include="ViewModel\PhoneSearchView.cs" />
     <EmbeddedResource Include="FrmAddEdit.resx">

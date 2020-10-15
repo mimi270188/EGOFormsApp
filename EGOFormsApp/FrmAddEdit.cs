@@ -1,6 +1,6 @@
 ﻿using DAL;
-using GymApp1.Common;
-using GymApp1.Commun.Control;
+using EGOFormsApp.Common;
+using EGOFormsApp.Commun.Control;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GymApp1
+namespace EGOFormsApp
 {
     public partial class FrmAddEdit : Form
     {
