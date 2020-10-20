@@ -17,20 +17,22 @@ namespace EGOFormsApp
     public partial class FrmAddEdit : Form
     {
         private Type type;
-        private object obj;
+        private object objSlave;
+        private object objMaster;
         public EGOEntities egoEntities;
         private List<string> _tables = new List<string>() { "FAMILYID", "PERSONID", "PAYMENTTYPEID", "DOCUMENTTYPEID", "PERSONID" };
 
-        public FrmAddEdit(EGOEntities _egoEntities, Type _type, object _obj = null)
+        public FrmAddEdit(EGOEntities _egoEntities, Type _type, object _objSlave = null, object _objMaster = null)
         {
             InitializeComponent();
             type = _type;
-            obj = _obj;
+            objSlave = _objSlave;
+            objMaster = _objMaster;
             egoEntities = _egoEntities;
-            CreateEditForm(obj);
+            CreateEditForm(objSlave, objMaster);
         }
 
-        public void CreateEditForm(object obj = null)
+        public void CreateEditForm(object objSlave = null, object objMaster = null)
         {
             int y = 30;
             int x = 10;
@@ -61,7 +63,7 @@ namespace EGOFormsApp
                         TextBox textBox = new TextBox();
                         textBox.Width = 150;
                         textBox.Name = prop.Name;
-                        if (obj != null) { textBox.Text = obj.GetType().GetProperty(prop.Name).GetValue(obj, null).ToString(); }
+                        if (objSlave != null) { textBox.Text = objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null).ToString(); }
                         textBox.Location = new Point(x, y);
                         textBox.Enter += new System.EventHandler(this.textBox_Enter);
                         y = y + 24;
@@ -71,7 +73,7 @@ namespace EGOFormsApp
                     {
                         if (_tables.Contains(prop.Name))
                         {
-                            this.Controls.Add(CreateCombobox(prop.Name, ref x, ref y, obj));
+                            this.Controls.Add(CreateCombobox(prop.Name, ref x, ref y, objMaster, objSlave));
                         }
                         else
                         {
@@ -79,7 +81,8 @@ namespace EGOFormsApp
                             numericUpDown.Width = 100;
                             numericUpDown.Maximum = 9999999;
                             numericUpDown.Name = prop.Name;
-                            if (obj != null) { numericUpDown.Value = Convert.ToDecimal(obj.GetType().GetProperty(prop.Name).GetValue(obj, null)); }
+                            if (prop.Name.Contains("YEAR")){ numericUpDown.Value = DateTime.Now.Year; }
+                            if (objSlave != null) { numericUpDown.Value = Convert.ToDecimal(objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null)); }
                             numericUpDown.Location = new Point(x, y);
                             y = y + 24;
                             this.Controls.Add(numericUpDown);
@@ -89,7 +92,7 @@ namespace EGOFormsApp
                     {
                         DateTimePicker dateTimePicker = new DateTimePicker();
                         dateTimePicker.Name = prop.Name;
-                        if (obj != null) { dateTimePicker.Value = (DateTime)obj.GetType().GetProperty(prop.Name).GetValue(obj, null); }
+                        if (objSlave != null) { dateTimePicker.Value = (DateTime)objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null); }
                         dateTimePicker.Format = DateTimePickerFormat.Short;
                         dateTimePicker.Location = new Point(x, y);
                         y = y + 24;
@@ -102,7 +105,7 @@ namespace EGOFormsApp
                         numericUpDown.DecimalPlaces = 2;
                         numericUpDown.Maximum = 9999999;
                         numericUpDown.Name = prop.Name;
-                        if (obj != null) { numericUpDown.Value = Convert.ToDecimal(obj.GetType().GetProperty(prop.Name).GetValue(obj, null)); }
+                        if (objSlave != null) { numericUpDown.Value = Convert.ToDecimal(objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null)); }
                         numericUpDown.Location = new Point(x, y);
                         y = y + 24;
                         this.Controls.Add(numericUpDown);
@@ -118,20 +121,20 @@ namespace EGOFormsApp
         }
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            Save();
+            Save(objSlave, objMaster);
         }
-        private void Save()
+        private void Save(object objSlave = null, object objMaster = null)
         {
             try
             {
                 object _obj;
-                if (obj == null)
+                if (objSlave == null)
                 {
                     _obj = Activator.CreateInstance(type);
                 }
                 else
                 {
-                    _obj = obj;
+                    _obj = objSlave;
                 }
 
                 foreach (Control control in this.Controls)
@@ -184,15 +187,15 @@ namespace EGOFormsApp
                         }
                     }
                 }
-                if (obj == null)
+                if (objSlave == null)
                 {
                     egoEntities.Set(type).Add(_obj);
                 }
                 egoEntities.SaveChanges();
 
-                MessageBox.Show(Translation.GetByKey("Enregistrer"));
-                if (obj == null)
+                if (objSlave == null)
                 {
+                    MessageBox.Show(Translation.GetByKey("Enregistrer"));
                     RemoveAllControls();
                     CreateEditForm();
                 }
@@ -228,7 +231,7 @@ namespace EGOFormsApp
             currentTextBox.SelectionStart = currentTextBox.TextLength;
         }
 
-        private ComboBox CreateCombobox(string propName, ref int x, ref int y, object obj)
+        private ComboBox CreateCombobox(string propName, ref int x, ref int y, object objMaster, object objSlave)
         {
             ComboBox comboBox = new ComboBox();
             comboBox.Name = propName;
@@ -248,7 +251,11 @@ namespace EGOFormsApp
                     item.Value = family.FAMILYID;
 
                     comboBox.Items.Add(item);
-                    if (obj != null && family.FAMILYID == (int)obj.GetType().GetProperty(propName).GetValue(obj, null))
+                    if (objMaster != null && objMaster.GetType().GetProperty(propName) != null && family.FAMILYID == (int)Reflection.GetValue(objMaster, propName))
+                    {
+                        comboBox.SelectedIndex = i;
+                    }
+                    else if (objSlave != null && objSlave.GetType().GetProperty(propName) != null && family.FAMILYID == (int)Reflection.GetValue(objSlave, propName))
                     {
                         comboBox.SelectedIndex = i;
                     }
@@ -267,7 +274,11 @@ namespace EGOFormsApp
                     item.Value = paymentType.PAYMENTTYPEID;
 
                     comboBox.Items.Add(item);
-                    if (obj != null && paymentType.PAYMENTTYPEID == (int)obj.GetType().GetProperty(propName).GetValue(obj, null))
+                    if (objMaster != null && objMaster.GetType().GetProperty(propName) != null && paymentType.PAYMENTTYPEID == (int)Reflection.GetValue(objMaster, propName))
+                    {
+                        comboBox.SelectedIndex = i;
+                    }
+                    else if (objSlave != null && objSlave.GetType().GetProperty(propName) != null && paymentType.PAYMENTTYPEID == (int)Reflection.GetValue(objSlave, propName))
                     {
                         comboBox.SelectedIndex = i;
                     }
@@ -286,7 +297,11 @@ namespace EGOFormsApp
                     item.Value = documentType.DOCUMENTTYPEID;
 
                     comboBox.Items.Add(item);
-                    if (obj != null && documentType.DOCUMENTTYPEID == (int)obj.GetType().GetProperty(propName).GetValue(obj, null))
+                    if (objMaster != null && objMaster.GetType().GetProperty(propName) != null && documentType.DOCUMENTTYPEID == (int)Reflection.GetValue(objMaster, propName))
+                    {
+                        comboBox.SelectedIndex = i;
+                    }
+                    else if (objSlave != null && objSlave.GetType().GetProperty(propName) != null && documentType.DOCUMENTTYPEID == (int)Reflection.GetValue(objSlave, propName))
                     {
                         comboBox.SelectedIndex = i;
                     }
@@ -305,7 +320,11 @@ namespace EGOFormsApp
                     item.Value = person.PERSONID;
 
                     comboBox.Items.Add(item);
-                    if (obj != null && person.PERSONID == (int)obj.GetType().GetProperty(propName).GetValue(obj, null))
+                    if (objMaster != null && objMaster.GetType().GetProperty(propName) != null && person.PERSONID == (int)Reflection.GetValue(objMaster, propName))
+                    {
+                        comboBox.SelectedIndex = i;
+                    }
+                    else if (objSlave != null && objSlave.GetType().GetProperty(propName) != null && person.PERSONID == (int)Reflection.GetValue(objSlave, propName))
                     {
                         comboBox.SelectedIndex = i;
                     }

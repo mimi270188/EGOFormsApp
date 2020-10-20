@@ -11,9 +11,10 @@ namespace EGOFormsApp.ViewModel
     {
         public GymGroupSearchView(GYMGROUP gymGroup)
         {
+            this.GYMGROUPID = gymGroup.GYMGROUPID;
             this.GYMGROUPNAME = gymGroup.GYMGROUPNAME;
             this.NUMBEROFHOURS = gymGroup.NUMBEROFHOURS;
-            this.GYMYEAR = gymGroup.GYMGROUPYEAR;
+            this.GYMGROUPYEAR = gymGroup.GYMGROUPYEAR;
             this.YEARPRICE = gymGroup.YEARPRICE;
         }
 
@@ -27,9 +28,10 @@ namespace EGOFormsApp.ViewModel
             }
         }
 
+        public int GYMGROUPID { get; set; }
         public string GYMGROUPNAME { get; set; }
         public float NUMBEROFHOURS { get; set; }
-        public int GYMYEAR { get; set; }
+        public int GYMGROUPYEAR { get; set; }
         public float YEARPRICE { get; set; }
         public List<GymGroupSearchView> GymGroupSearchViews { get; set; }
     }

@@ -17,9 +17,9 @@ namespace GymApp1.Model
             FrmAddEdit _frmAddEdit = new FrmAddEdit(egoEntities, typeof(T));
             _frmAddEdit.ShowDialog();
         }
-        protected void Add(object obj)
+        protected void Add(object _masterObj)
         {
-            FrmAddEdit _frmAddEdit = new FrmAddEdit(egoEntities, typeof(T), obj);
+            FrmAddEdit _frmAddEdit = new FrmAddEdit(egoEntities, typeof(T), _masterObj);
             _frmAddEdit.ShowDialog();
         }
         protected void Edit(object obj)

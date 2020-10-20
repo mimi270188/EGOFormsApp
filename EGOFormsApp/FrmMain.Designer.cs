@@ -71,6 +71,7 @@
             this.groupToolStripMenuItem.Name = "groupToolStripMenuItem";
             this.groupToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.groupToolStripMenuItem.Text = "Groupe";
+            this.groupToolStripMenuItem.Click += new System.EventHandler(this.groupToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -127,7 +128,6 @@
             this.Name = "FrmMain";
             this.Text = "Espoirs Gymniques d\'Osny";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.FrmMain_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
