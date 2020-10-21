@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fichierToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.familyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,12 +38,14 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fichierToolStripMenuItem,
             this.familyToolStripMenuItem,
             this.PersonToolStripMenuItem,
             this.groupToolStripMenuItem});
@@ -52,12 +55,20 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // fichierToolStripMenuItem
+            // 
+            this.fichierToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.configurationToolStripMenuItem});
+            this.fichierToolStripMenuItem.Name = "fichierToolStripMenuItem";
+            this.fichierToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.fichierToolStripMenuItem.Text = "Fichier";
+            // 
             // familyToolStripMenuItem
             // 
             this.familyToolStripMenuItem.Name = "familyToolStripMenuItem";
             this.familyToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.familyToolStripMenuItem.Text = "Famille";
-            this.familyToolStripMenuItem.Click += new System.EventHandler(this.familyToolStripMenuItem_Click);
+            this.familyToolStripMenuItem.Click += new System.EventHandler(this.FamilyToolStripMenuItem_Click);
             // 
             // PersonToolStripMenuItem
             // 
@@ -71,7 +82,7 @@
             this.groupToolStripMenuItem.Name = "groupToolStripMenuItem";
             this.groupToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.groupToolStripMenuItem.Text = "Groupe";
-            this.groupToolStripMenuItem.Click += new System.EventHandler(this.groupToolStripMenuItem_Click);
+            this.groupToolStripMenuItem.Click += new System.EventHandler(this.GroupToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -114,6 +125,13 @@
             this.panel5.Size = new System.Drawing.Size(630, 93);
             this.panel5.TabIndex = 16;
             // 
+            // configurationToolStripMenuItem
+            // 
+            this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configurationToolStripMenuItem.Text = "Configuration";
+            this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,6 +164,8 @@
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.Panel panel4;
         public System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.ToolStripMenuItem fichierToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
     }
 }
 

@@ -48,7 +48,7 @@
             <PropertyRef Name="GYMGROUPID" />
           </Key>
           <Property Name="GYMGROUPID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GYMGROUPNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GYMGROUPNAME" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="NUMBEROFHOURS" Type="real" Nullable="false" />
           <Property Name="GYMGROUPYEAR" Type="int" Nullable="false" />
           <Property Name="YEARPRICE" Type="real" Nullable="false" />
@@ -368,7 +368,7 @@
             <PropertyRef Name="GYMGROUPID" />
           </Key>
           <Property Name="GYMGROUPID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GYMGROUPNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GYMGROUPNAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="NUMBEROFHOURS" Type="Single" Nullable="false" />
           <Property Name="GYMGROUPYEAR" Type="Int32" Nullable="false" />
           <Property Name="YEARPRICE" Type="Single" Nullable="false" />

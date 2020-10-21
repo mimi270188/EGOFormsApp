@@ -62,7 +62,7 @@ namespace EGOFormsApp.Model
 
             _frm.Controls.OfType<DataGridView>().First().Columns.Add(dataGridViewButtonColumn);
         }
-        protected object GetObjectById(int _id, bool _master = false)
+        protected object GetObjectById(int _id, bool _master, string _slaveType, string _masterType)
         {
             switch (typeof(T).Name)
             {
@@ -75,8 +75,16 @@ namespace EGOFormsApp.Model
                     }
                     else
                     {
-                        return _id == 0 ? egoEntities.PERSON_GYMGROUP.First() : egoEntities.PERSON_GYMGROUP.First(x => x.PERSON_GYMGROUP_ID == _id);
+                        if (_masterType == "GYMGROUP")
+                        {
+                            return _id == 0 ? egoEntities.PERSON_GYMGROUP.First() : egoEntities.PERSON_GYMGROUP.First(x => x.PERSON_GYMGROUP_ID == _id);
+                        }
+                        else if (_masterType == "FAMILY")
+                        {
+                            return _id == 0 ? egoEntities.PERSON.First() : egoEntities.PERSON.First(x => x.PERSONID == _id);
+                        }
                     }
+                    break;
                 case "PHONE":
                     return _id == 0 ? egoEntities.PHONE.First() : egoEntities.PHONE.First(x => x.PHONEID == _id);
                 case "DISCOUNT":

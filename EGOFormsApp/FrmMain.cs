@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EGOFormsApp.Model;
+using EGOFormsApp.Common;
 
 namespace EGOFormsApp
 {
@@ -19,7 +20,7 @@ namespace EGOFormsApp
             InitializeComponent();
         }
 
-        private void familyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FamilyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResetPanels();
             MasterObject<FAMILY> _masterObjectFamily = new MasterObject<FAMILY>(this);
@@ -31,7 +32,7 @@ namespace EGOFormsApp
             ResetPanels();
             MasterObject<PERSON> _masterObjectPerson = new MasterObject<PERSON>(this);
         }
-        private void groupToolStripMenuItem_Click(object sender, EventArgs e)
+        private void GroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ResetPanels();
             MasterObject<GYMGROUP> _masterObjectPerson = new MasterObject<GYMGROUP>(this);
@@ -44,6 +45,12 @@ namespace EGOFormsApp
             panel3.Controls.Clear();
             panel4.Controls.Clear();
             panel5.Controls.Clear();
+        }
+
+        private void configurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmSetting FrmSetting = new FrmSetting();
+            FrmSetting.ShowDialog();
         }
     }
 }

@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreationTablesSql.cs" />
     <Compile Include="DISCOUNT.cs">
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
@@ -132,6 +131,7 @@
       <DependentUpon>EGOModel.edmx</DependentUpon>
       <LastGenOutput>EGOModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SQLCreation.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

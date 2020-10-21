@@ -54,12 +54,12 @@ namespace EGOFormsApp.Model
             DataGridView dataGridView = (DataGridView)sender;
             if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
             {
-                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), true));
+                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), true, null, typeof(T).Name));
                 UpdateChild(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value));
             }
             else if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
             {
-                Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), true));
+                Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), true, null, typeof(T).Name));
                 UpdateChild(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value));
             }
             else
@@ -114,7 +114,7 @@ namespace EGOFormsApp.Model
         {
             foreach (object slaveObj in slaveObjects)
             {
-                Reflection.SetValue(slaveObj, "MasterObj", GetObjectById(id, true));
+                Reflection.SetValue(slaveObj, "MasterObj", GetObjectById(id, true, null, typeof(T).Name));
             }
         }
         private void SetAutoCompletion(TextBox _textBox, List<string> _listString)
@@ -135,18 +135,18 @@ namespace EGOFormsApp.Model
             switch (typeof(T).Name)
             {
                 case "FAMILY":
-                    slaveObjects.Add(new SlaveObject<PERSON>(_frmMain, GetObjectById(0, true)));
-                    slaveObjects.Add(new SlaveObject<PHONE>(_frmMain, GetObjectById(0, true)));
-                    slaveObjects.Add(new SlaveObject<DISCOUNT>(_frmMain, GetObjectById(0, true)));
-                    slaveObjects.Add(new SlaveObject<PAYMENT>(_frmMain, GetObjectById(0, true)));
+                    slaveObjects.Add(new SlaveObject<PERSON>(_frmMain, GetObjectById(0, true, null, typeof(T).Name))); ;
+                    slaveObjects.Add(new SlaveObject<PHONE>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
+                    slaveObjects.Add(new SlaveObject<DISCOUNT>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
+                    slaveObjects.Add(new SlaveObject<PAYMENT>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     break;
                 case "PERSON":
-                    slaveObjects.Add(new SlaveObject<KIND>(_frmMain, GetObjectById(0, true)));
-                    slaveObjects.Add(new SlaveObject<DOCUMENT>(_frmMain, GetObjectById(0, true)));
-                    slaveObjects.Add(new SlaveObject<GYMGROUP>(_frmMain, GetObjectById(0, true)));
+                    slaveObjects.Add(new SlaveObject<KIND>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
+                    slaveObjects.Add(new SlaveObject<DOCUMENT>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
+                    slaveObjects.Add(new SlaveObject<GYMGROUP>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     break;
                 case "GYMGROUP":
-                    slaveObjects.Add(new SlaveObject<PERSON>(_frmMain, GetObjectById(0, true)));
+                    slaveObjects.Add(new SlaveObject<PERSON>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     break;
                 default:
                     break;

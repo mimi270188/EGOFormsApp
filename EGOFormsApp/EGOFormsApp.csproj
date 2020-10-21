@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="Common\Control\ComboboxItem.cs" />
     <Compile Include="Common\Control\DataGridViewControl.cs" />
+    <Compile Include="Common\Database.cs" />
+    <Compile Include="Common\Reader.cs" />
     <Compile Include="Common\Reflection.cs" />
     <Compile Include="Common\Translation.cs" />
     <Compile Include="FrmAddEdit.cs">
@@ -83,12 +85,19 @@
     <Compile Include="FrmMaster.Designer.cs">
       <DependentUpon>FrmMaster.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSetting.Designer.cs">
+      <DependentUpon>FrmSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSlave.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmSlave.Designer.cs">
       <DependentUpon>FrmSlave.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\BindingTables.cs" />
     <Compile Include="Model\MasterObject.cs" />
     <Compile Include="Model\ParentObject.cs" />
     <Compile Include="Model\SlaveObject.cs" />
@@ -117,6 +126,9 @@
     <EmbeddedResource Include="FrmMaster.resx">
       <DependentUpon>FrmMaster.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmSetting.resx">
+      <DependentUpon>FrmSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmSlave.resx">
       <DependentUpon>FrmSlave.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,7 +156,35 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{bd8e94ea-6e8f-4350-b8b7-352e8e42dad1}</Project>

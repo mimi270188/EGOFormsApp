@@ -70,16 +70,15 @@ namespace EGOFormsApp.Model
             DataGridView dataGridView = (DataGridView)sender;
             if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
             {
-                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value)));              
+                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().Name));              
             }
             else if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
             {
-                Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value)));
+                Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().Name));
             }
             FrmSlave _frmSlave = (FrmSlave)dataGridView.Parent;
             RefreshDataGridView(_frmSlave);
         }
-
 
         private void RefreshDataGridView(FrmSlave _frmSlave)
         {
@@ -179,7 +178,6 @@ namespace EGOFormsApp.Model
             }
         }
 
-
         private void SetEvent(FrmSlave _frmSlave)
         {
             string materObjectName = masterObj.GetType().BaseType.Name;
@@ -213,17 +211,6 @@ namespace EGOFormsApp.Model
             bindsTables.Add(new BindingTables("PERSON", "KIND"));
             bindsTables.Add(new BindingTables("PERSON", "GYMGROUP"));
             bindsTables.Add(new BindingTables("GYMGROUP", "PERSON"));
-        }
-
-        private class BindingTables
-        {
-            public BindingTables(string _materObjectName, string _slaveObjectName)
-            {
-                MasterObjectName = _materObjectName;
-                SlaveObjectName = _slaveObjectName;
-            }
-            public string MasterObjectName { get; set; }
-            public string SlaveObjectName { get; set; }
         }
     }
 }
