@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GymApp1
+namespace EGOFormsApp
 {
-    public partial class FrmMaster : Form
+    public partial class FrmReport : Form
     {
-        public FrmMaster()
+        public FrmReport()
         {
             InitializeComponent();
+        }
+
+        private void FrmReport_Load(object sender, EventArgs e)
+        {
+
+            this.reportViewer1.RefreshReport();
         }
     }
 }

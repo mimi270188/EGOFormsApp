@@ -18,7 +18,7 @@ namespace EGOFormsApp.Common
 {
     public static class Reader
     {
-        const string fileName = @"C:\Users\grand\Downloads\EGO 2020-2021.xlsx";
+        const string fileName = @"C:\Users\mgrandiere.COMMANDALKON\Downloads\EGO 2020-2021.xlsx";
 
         public static void ImportExcel(FrmSetting _FrmSetting)
         {
@@ -38,9 +38,9 @@ namespace EGOFormsApp.Common
             _FrmSetting.progressBar.Maximum = _ExcelModel.Count;
             int i = 0;
 
-            foreach (var ExcelModel in _ExcelModel)
+            try
             {
-                try
+                foreach (var ExcelModel in _ExcelModel)
                 {
                     i++;
                     _FrmSetting.label1.Text = "Création de l'adhérent:" + ExcelModel.NOM + " " + ExcelModel.PRENOM + i + "/" + _ExcelModel.Count;
@@ -60,8 +60,8 @@ namespace EGOFormsApp.Common
 
                     PERSON Person = new PERSON();
                     Person.FAMILYID = Family.FAMILYID;
-                    Person.LASTNAME = ExcelModel.NOM;
-                    Person.FIRSTNAME = ExcelModel.PRENOM;
+                    Person.LASTNAME = ExcelModel.NOM.ToUpper();
+                    Person.FIRSTNAME = ExcelModel.PRENOM.ToUpper();
                     Person.BIRTHDATE = ExcelModel.NEELE;
                     Person.HOURLYRATE = 0;
 
@@ -207,32 +207,69 @@ namespace EGOFormsApp.Common
                         _EGOEntities.PAYMENT.Add(Payment);
                     }
 
+                    if (!ExcelModel.Nouvelle)
+                    {
+                        DISCOUNT Discount = new DISCOUNT();
+                        Discount.FAMILYID = Family.FAMILYID;
+                        Discount.DISCOUNTYEAR = CurrentStartYear();
+                        Discount.DESCRIPTION = "Cotisation";
+                        Discount.AMOUNT = 35;
+
+                        _EGOEntities.DISCOUNT.Add(Discount);
+                    }
+
                     _EGOEntities.SaveChanges();
                 }
-                catch (DbEntityValidationException e)
+
+                _FrmSetting.label1.Text = "Création des réductions familiales";
+                CreateFamilyDiscount(_EGOEntities);
+                _EGOEntities.SaveChanges();
+                _FrmSetting.label1.Text = "Fin";
+                _FrmSetting.progressBar.Value = 0;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
                 {
-                    foreach (var eve in e.EntityValidationErrors)
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
                     {
-                        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
                     }
-                    throw;
                 }
-                catch(Exception ex)
+                throw;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+        }
+        private static void CreateFamilyDiscount(EGOEntities _EGOEntities)
+        {
+            List<FAMILY> Familys = _EGOEntities.FAMILY.ToList();
+
+            foreach (var Family in Familys)
+            {
+                if (Family.PERSON.Count > 1)
                 {
-                    Console.WriteLine(ex.ToString());
+                    DISCOUNT Discount = new DISCOUNT();
+                    Discount.FAMILYID = Family.FAMILYID;
+                    Discount.DISCOUNTYEAR = CurrentStartYear();
+                    Discount.DESCRIPTION = "Réduction familiale";
+                    Discount.AMOUNT = 10;
+
+                    _EGOEntities.DISCOUNT.Add(Discount);
                 }
             }
         }
+        
         private static FAMILY CreateFamily(ExcelModel _ExcelModel, EGOEntities _EGOEntities)
         {
             FAMILY Family = new FAMILY();
-            Family.LASTNAME = _ExcelModel.NOM;
+            Family.LASTNAME = _ExcelModel.NOM.ToUpper();
             Family.ADDRESS = _ExcelModel.ADRESSE;
             Family.ZIPCODE = _ExcelModel.CP;
             Family.CITY = _ExcelModel.VILLE;
@@ -255,7 +292,7 @@ namespace EGOFormsApp.Common
             return GymGroup;
         }
 
-        private static int CurrentStartYear()
+        public static int CurrentStartYear()
         {
             if (DateTime.Now.Month > 8)
             {

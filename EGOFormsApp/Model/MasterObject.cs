@@ -39,6 +39,7 @@ namespace EGOFormsApp.Model
             Button buttonSearch = (Button)sender;
             FrmMaster _frmMaster = (FrmMaster)buttonSearch.Parent;
             RefreshDataGridView(_frmMaster, egoEntities);
+            UpdateChild(Convert.ToInt32(_frmMaster.dataGridView.Rows[0].Cells[0].Value));
         }
         private void buttonAdd_Click(object sender, EventArgs e)
         {
@@ -50,6 +51,7 @@ namespace EGOFormsApp.Model
         }
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1){return;}
             Cursor.Current = Cursors.WaitCursor;
             DataGridView dataGridView = (DataGridView)sender;
             if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
@@ -68,8 +70,19 @@ namespace EGOFormsApp.Model
             }
             FrmMaster _frmMaster = (FrmMaster)dataGridView.Parent;
             RefreshDataGridView(_frmMaster, egoEntities);
-            dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Blue;
-            dataGridView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+            if (dataGridView.Rows.Count == 0)
+            {
+            }
+            else if (dataGridView.Rows.Count < e.RowIndex)
+            {
+                dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.Blue;
+                dataGridView.Rows[0].DefaultCellStyle.ForeColor = Color.White;
+            }
+            else
+            {
+                dataGridView.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Blue;
+                dataGridView.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.White;
+            }
             Cursor.Current = Cursors.Default;
         }
 
@@ -82,7 +95,7 @@ namespace EGOFormsApp.Model
             {
                 case "FAMILY":
                     string lastNameFamily = _frmMaster.textBox1.Text;
-                    FamilySearchView familySearchView = new FamilySearchView(_egoEntities.FAMILY.Where(x => x.LASTNAME.Contains(lastNameFamily)).ToList());
+                    FamilySearchView familySearchView = new FamilySearchView(_egoEntities.FAMILY.Where(x => x.LASTNAME.Contains(lastNameFamily)).ToList().OrderBy(x => x.LASTNAME).ToList());
                     _frmMaster.dataGridView.DataSource = familySearchView.FamilySearchViews;
                     _frmMaster.dataGridView.Columns["FAMILYID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmMaster, false);
@@ -91,7 +104,7 @@ namespace EGOFormsApp.Model
                     break;
                 case "PERSON":
                     string lastNamePerson = _frmMaster.textBox1.Text;
-                    PersonSearchView personSearchView = new PersonSearchView(_egoEntities.PERSON.Where(x => x.LASTNAME.Contains(lastNamePerson)).ToList());
+                    PersonSearchView personSearchView = new PersonSearchView(_egoEntities.PERSON.Where(x => x.LASTNAME.Contains(lastNamePerson)).ToList().OrderBy(x => x.LASTNAME).ToList());
                     _frmMaster.dataGridView.DataSource = personSearchView.PersonSearchViews;
                     _frmMaster.dataGridView.Columns["PERSONID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmMaster, false);

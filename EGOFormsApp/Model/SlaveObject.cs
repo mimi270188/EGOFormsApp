@@ -70,11 +70,11 @@ namespace EGOFormsApp.Model
             DataGridView dataGridView = (DataGridView)sender;
             if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
             {
-                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().Name));              
+                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().BaseType.Name));              
             }
             else if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
             {
-                Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().Name));
+                Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().BaseType.Name));
             }
             FrmSlave _frmSlave = (FrmSlave)dataGridView.Parent;
             RefreshDataGridView(_frmSlave);

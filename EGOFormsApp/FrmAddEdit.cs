@@ -3,13 +3,10 @@ using EGOFormsApp.Common;
 using EGOFormsApp.Commun.Control;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EGOFormsApp
@@ -92,7 +89,17 @@ namespace EGOFormsApp
                     {
                         DateTimePicker dateTimePicker = new DateTimePicker();
                         dateTimePicker.Name = prop.Name;
-                        if (objSlave != null) { dateTimePicker.Value = (DateTime)objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null); }
+                        if (objSlave != null) 
+                        {
+                            if (objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null) == null)
+                            {
+                                dateTimePicker.Value = DateTime.Now;
+                            }
+                            else
+                            {
+                                dateTimePicker.Value = (DateTime)objSlave.GetType().GetProperty(prop.Name).GetValue(objSlave, null);
+                            }
+                        }
                         dateTimePicker.Format = DateTimePickerFormat.Short;
                         dateTimePicker.Location = new Point(x, y);
                         y = y + 24;
@@ -242,7 +249,7 @@ namespace EGOFormsApp
             if (propName == "FAMILYID")
             {
                 List<FAMILY> familys = new List<FAMILY>();
-                familys = egoEntities.FAMILY.ToList();
+                familys = egoEntities.FAMILY.ToList().OrderBy(a => a.LASTNAME).ToList();
                 int i = 0;
                 foreach (var family in familys)
                 {
@@ -311,7 +318,7 @@ namespace EGOFormsApp
             if (propName == "PERSONID")
             {
                 List<PERSON> persons = new List<PERSON>();
-                persons = egoEntities.PERSON.ToList();
+                persons = egoEntities.PERSON.ToList().OrderBy(a => a.LASTNAME).ToList();
                 int i = 0;
                 foreach (var person in persons)
                 {
