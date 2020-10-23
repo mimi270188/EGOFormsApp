@@ -4,7 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ff684c3099ac44f48a7f4ca7b4f8ad57" Name="Diagram1">
+      <Diagram DiagramId="e525c39446b2409e83aa2589eab7f3e6" Name="Diagram1">
+        <EntityTypeShape EntityType="EGOModel.CONTRIBUTION" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EGOModel.DISCOUNT" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EGOModel.DOCUMENT" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EGOModel.DOCUMENTTYPE" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
@@ -17,7 +18,7 @@
         <EntityTypeShape EntityType="EGOModel.PERSON_GYMGROUP" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EGOModel.PERSON_KIND" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EGOModel.PHONE" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.TRANSLATION" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.TRANSLATION" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="EGOModel.fk_DISCOUNT_FAMILY" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_DOCUMENT_DOCUMENTTYPE" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_DOCUMENT_PERSON" ManuallyRouted="false" />

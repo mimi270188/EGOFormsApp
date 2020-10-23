@@ -19,8 +19,7 @@ namespace EGOFormsApp
 
         private void FrmReport_Load(object sender, EventArgs e)
         {
-
-            this.reportViewer1.RefreshReport();
+            this.reportViewer.RefreshReport();
         }
     }
 }

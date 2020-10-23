@@ -18,7 +18,7 @@ namespace EGOFormsApp.Common
 {
     public static class Reader
     {
-        const string fileName = @"C:\Users\mgrandiere.COMMANDALKON\Downloads\EGO 2020-2021.xlsx";
+        const string fileName = @"C:\Users\grand\Downloads\EGO 2020-2021.xlsx";
 
         public static void ImportExcel(FrmSetting _FrmSetting)
         {
@@ -204,6 +204,18 @@ namespace EGOFormsApp.Common
                         Payment.PAYMENTDATE = DateTime.ParseExact("01/01/2021", "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         Payment.CHECKNUMBER = ExcelModel.ECH4NUMCHEQUE;
                         Payment.AMOUNT = ExcelModel.ECH4MONTANT;
+                        _EGOEntities.PAYMENT.Add(Payment);
+                    }
+                    if (ExcelModel.COTISLICENCE != 0)
+                    {
+                        Payment = new PAYMENT();
+
+                        Payment.PAYMENTTYPEID = 2;
+                        Payment.FAMILYID = Family.FAMILYID;
+                        Payment.GYMYEAR = CurrentStartYear();
+                        Payment.PAYMENTDATE = DateTime.ParseExact("01/01/2021", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        Payment.CHECKNUMBER = ExcelModel.ECH4NUMCHEQUE;
+                        Payment.AMOUNT = ExcelModel.COTISLICENCE;
                         _EGOEntities.PAYMENT.Add(Payment);
                     }
 

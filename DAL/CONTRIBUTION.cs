@@ -12,10 +12,10 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class TRANSLATION
+    public partial class CONTRIBUTION
     {
-        public string TRANSLATIONKEY { get; set; }
-        public string WORDS { get; set; }
-        public string LANG { get; set; }
+        public int CONTRIBUTIONID { get; set; }
+        public int GYMYEAR { get; set; }
+        public float AMOUNT { get; set; }
     }
 }

@@ -64,10 +64,13 @@ namespace EGOFormsApp
             BindingSource bindingSource = new BindingSource();
             bindingSource.DataSource = GetReportDocuments();
             ReportDataSource reportDataSource = new ReportDataSource("DataSet1", bindingSource);
-            frmReport.reportViewer1.LocalReport.DataSources.Add(reportDataSource);
-            frmReport.reportViewer1.LocalReport.ReportEmbeddedResource = "EGOFormsApp.Reports.ReportDocuments.rdlc";
-            //frmReport.reportViewer1.SetDisplayMode(DisplayMode.PrintLayout);
-            frmReport.reportViewer1.Refresh();
+            frmReport.reportViewer.LocalReport.DataSources.Add(reportDataSource);
+            frmReport.reportViewer.LocalReport.ReportEmbeddedResource = "EGOFormsApp.Reports.ReportDocuments.rdlc";
+            frmReport.reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            var setup = frmReport.reportViewer.GetPageSettings();
+            setup.Margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
+            frmReport.reportViewer.SetPageSettings(setup);
+            frmReport.reportViewer.Refresh();
             frmReport.ShowDialog();
         }
 
@@ -127,5 +130,59 @@ namespace EGOFormsApp
 
             return ReportDocuments;
         }
+
+        private void paiementsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmReport frmReport = new FrmReport();
+            BindingSource bindingSource = new BindingSource();
+            bindingSource.DataSource = GetReportPayments();
+            ReportDataSource reportDataSource = new ReportDataSource("DataSet1", bindingSource);
+            frmReport.reportViewer.LocalReport.DataSources.Add(reportDataSource);
+            frmReport.reportViewer.LocalReport.ReportEmbeddedResource = "EGOFormsApp.Reports.ReportPayments.rdlc";
+            frmReport.reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            var setup = frmReport.reportViewer.GetPageSettings();
+            setup.Margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
+            frmReport.reportViewer.SetPageSettings(setup);
+            frmReport.reportViewer.Refresh();
+            frmReport.ShowDialog();
+        }
+
+        private List<ReportPayment> GetReportPayments()
+        {
+            List<ReportPayment> reportPayments = new List<ReportPayment>();
+            EGOEntities egoEntities = new EGOEntities();
+            List<FAMILY> familys = egoEntities.FAMILY.ToList().OrderBy(x => x.LASTNAME).ToList();
+            int year = Reader.CurrentStartYear();
+            float contribution = 0;
+            if (egoEntities.CONTRIBUTION.Any(x => x.GYMYEAR == year))
+            {
+                contribution = egoEntities.CONTRIBUTION.First(x => x.GYMYEAR == year).AMOUNT;
+            }
+
+            foreach (var family in familys)
+            {
+                ReportPayment reportPayment = new ReportPayment();
+
+                float PAID = family.PAYMENT.Where(x => x.GYMYEAR == year).Sum(x => x.AMOUNT);
+                float RECEIVABLE = (family.PERSON.SelectMany(x => x.PERSON_GYMGROUP).Select(x => x.GYMGROUP).Where(x => x.GYMGROUPYEAR == year).Sum(x => x.YEARPRICE) + contribution) - family.DISCOUNT.Sum(x => x.AMOUNT);
+                float REMAININGBALANCE = RECEIVABLE - PAID;
+
+                if (REMAININGBALANCE != 0)
+                {
+                    reportPayment.LASTNAME = family.LASTNAME;
+                    reportPayment.ZIPCODE = family.ZIPCODE;
+                    reportPayment.ADDRESS = family.ADDRESS;
+                    reportPayment.RECEIVABLE = RECEIVABLE;
+                    reportPayment.PAID = PAID;
+                    reportPayment.REMAININGBALANCE = REMAININGBALANCE;
+                
+                    reportPayments.Add(reportPayment);
+                }
+            }
+
+
+            return reportPayments;
+        }
+
     }
 }

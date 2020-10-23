@@ -21,11 +21,13 @@ namespace EGOFormsApp
         private void buttonDrop_Click(object sender, EventArgs e)
         {
             Database.Drop();
+            MessageBox.Show("Suppression terminée");
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
             Database.Create();
+            MessageBox.Show("Création terminée");
         }
 
         private void buttonImport_Click(object sender, EventArgs e)

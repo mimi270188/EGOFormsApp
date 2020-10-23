@@ -28,47 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            this.ReportDocumentBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
-            ((System.ComponentModel.ISupportInitialize)(this.ReportDocumentBindingSource)).BeginInit();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
             // 
-            // ReportDocumentBindingSource
+            // reportViewer
             // 
-            this.ReportDocumentBindingSource.DataSource = typeof(EGOFormsApp.Model.ReportDocument);
-            // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "DataSet1";
-            reportDataSource1.Value = this.ReportDocumentBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote;
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(800, 450);
-            this.reportViewer1.TabIndex = 0;
+            this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(800, 450);
+            this.reportViewer.TabIndex = 0;
             // 
             // FrmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.reportViewer1);
+            this.Controls.Add(this.reportViewer);
             this.Name = "FrmReport";
             this.Text = "FrmReport";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmReport_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ReportDocumentBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        public Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
-        public System.Windows.Forms.BindingSource ReportDocumentBindingSource;
+        public Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }

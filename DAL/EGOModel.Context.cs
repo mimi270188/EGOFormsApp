@@ -25,6 +25,7 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CONTRIBUTION> CONTRIBUTION { get; set; }
         public virtual DbSet<DISCOUNT> DISCOUNT { get; set; }
         public virtual DbSet<DOCUMENT> DOCUMENT { get; set; }
         public virtual DbSet<DOCUMENTTYPE> DOCUMENTTYPE { get; set; }

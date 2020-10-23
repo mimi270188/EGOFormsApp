@@ -125,6 +125,7 @@
     <Compile Include="Model\MasterObject.cs" />
     <Compile Include="Model\ParentObject.cs" />
     <Compile Include="Model\ReportDocument.cs" />
+    <Compile Include="Model\ReportPayment.cs" />
     <Compile Include="Model\SlaveObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,8 +172,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Reports\ReportDocuments.rdlc" />
+    <EmbeddedResource Include="Reports\ReportPayments.rdlc" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\EGOFormsApp.Model.BindingTables.datasource" />
+    <None Include="Properties\DataSources\EGOFormsApp.Model.ReportPayment.datasource" />
     <None Include="Properties\DataSources\EGOFormsApp.ViewModel.Group.GymGroupSearchView.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

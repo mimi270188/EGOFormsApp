@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="EGOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONTRIBUTION">
+          <Key>
+            <PropertyRef Name="CONTRIBUTIONID" />
+          </Key>
+          <Property Name="CONTRIBUTIONID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GYMYEAR" Type="int" Nullable="false" />
+          <Property Name="AMOUNT" Type="real" Nullable="false" />
+        </EntityType>
         <EntityType Name="DISCOUNT">
           <Key>
             <PropertyRef Name="DISCOUNTID" />
@@ -120,6 +128,7 @@
           </Key>
           <Property Name="TRANSLATIONKEY" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="WORDS" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="LANG" Type="varchar" MaxLength="5" Nullable="false" />
         </EntityType>
         <Association Name="fk_DISCOUNT_FAMILY">
           <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
@@ -254,6 +263,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EGOModelStoreContainer">
+          <EntitySet Name="CONTRIBUTION" EntityType="Self.CONTRIBUTION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DISCOUNT" EntityType="Self.DISCOUNT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DOCUMENT" EntityType="Self.DOCUMENT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DOCUMENTTYPE" EntityType="Self.DOCUMENTTYPE" Schema="dbo" store:Type="Tables" />
@@ -317,6 +327,14 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EGOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CONTRIBUTION">
+          <Key>
+            <PropertyRef Name="CONTRIBUTIONID" />
+          </Key>
+          <Property Name="CONTRIBUTIONID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GYMYEAR" Type="Int32" Nullable="false" />
+          <Property Name="AMOUNT" Type="Single" Nullable="false" />
+        </EntityType>
         <EntityType Name="DISCOUNT">
           <Key>
             <PropertyRef Name="DISCOUNTID" />
@@ -454,6 +472,7 @@
           </Key>
           <Property Name="TRANSLATIONKEY" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="WORDS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LANG" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="fk_DISCOUNT_FAMILY">
           <End Role="FAMILY" Type="Self.FAMILY" Multiplicity="1" />
@@ -588,6 +607,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EGOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CONTRIBUTION" EntityType="Self.CONTRIBUTION" />
           <EntitySet Name="DISCOUNT" EntityType="Self.DISCOUNT" />
           <EntitySet Name="DOCUMENT" EntityType="Self.DOCUMENT" />
           <EntitySet Name="DOCUMENTTYPE" EntityType="Self.DOCUMENTTYPE" />
@@ -652,6 +672,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="EGOModelStoreContainer" CdmEntityContainer="EGOEntities">
+          <EntitySetMapping Name="CONTRIBUTION">
+            <EntityTypeMapping TypeName="EGOModel.CONTRIBUTION">
+              <MappingFragment StoreEntitySet="CONTRIBUTION">
+                <ScalarProperty Name="CONTRIBUTIONID" ColumnName="CONTRIBUTIONID" />
+                <ScalarProperty Name="GYMYEAR" ColumnName="GYMYEAR" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DISCOUNT">
             <EntityTypeMapping TypeName="EGOModel.DISCOUNT">
               <MappingFragment StoreEntitySet="DISCOUNT">
@@ -778,6 +807,7 @@
               <MappingFragment StoreEntitySet="TRANSLATION">
                 <ScalarProperty Name="TRANSLATIONKEY" ColumnName="TRANSLATIONKEY" />
                 <ScalarProperty Name="WORDS" ColumnName="WORDS" />
+                <ScalarProperty Name="LANG" ColumnName="LANG" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

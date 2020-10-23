@@ -34,14 +34,14 @@
             this.familyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rapportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paiementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.rapportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.documentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paiementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,6 +95,29 @@
             this.groupToolStripMenuItem.Text = "Groupe";
             this.groupToolStripMenuItem.Click += new System.EventHandler(this.GroupToolStripMenuItem_Click);
             // 
+            // rapportToolStripMenuItem
+            // 
+            this.rapportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.documentsToolStripMenuItem,
+            this.paiementsToolStripMenuItem});
+            this.rapportToolStripMenuItem.Name = "rapportToolStripMenuItem";
+            this.rapportToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.rapportToolStripMenuItem.Text = "Rapport";
+            // 
+            // documentsToolStripMenuItem
+            // 
+            this.documentsToolStripMenuItem.Name = "documentsToolStripMenuItem";
+            this.documentsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.documentsToolStripMenuItem.Text = "Documents";
+            this.documentsToolStripMenuItem.Click += new System.EventHandler(this.documentsToolStripMenuItem_Click);
+            // 
+            // paiementsToolStripMenuItem
+            // 
+            this.paiementsToolStripMenuItem.Name = "paiementsToolStripMenuItem";
+            this.paiementsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.paiementsToolStripMenuItem.Text = "Paiements";
+            this.paiementsToolStripMenuItem.Click += new System.EventHandler(this.paiementsToolStripMenuItem_Click);
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -135,28 +158,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(630, 93);
             this.panel5.TabIndex = 16;
-            // 
-            // rapportToolStripMenuItem
-            // 
-            this.rapportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.documentsToolStripMenuItem,
-            this.paiementsToolStripMenuItem});
-            this.rapportToolStripMenuItem.Name = "rapportToolStripMenuItem";
-            this.rapportToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.rapportToolStripMenuItem.Text = "Rapport";
-            // 
-            // documentsToolStripMenuItem
-            // 
-            this.documentsToolStripMenuItem.Name = "documentsToolStripMenuItem";
-            this.documentsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.documentsToolStripMenuItem.Text = "Documents";
-            this.documentsToolStripMenuItem.Click += new System.EventHandler(this.documentsToolStripMenuItem_Click);
-            // 
-            // paiementsToolStripMenuItem
-            // 
-            this.paiementsToolStripMenuItem.Name = "paiementsToolStripMenuItem";
-            this.paiementsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.paiementsToolStripMenuItem.Text = "Paiements";
             // 
             // FrmMain
             // 
