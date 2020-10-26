@@ -7,30 +7,34 @@ using DAL;
 
 namespace EGOFormsApp.ViewModel
 {
-    class PersonSearchView
+    class CoachSearchView
     {
-        public PersonSearchView(PERSON person)
+        public CoachSearchView(PERSON person)
         {
             this.PERSONID = person.PERSONID;
             this.LASTNAME = person.LASTNAME;
             this.FIRSTNAME = person.FIRSTNAME;
             this.BIRTHDATE = person.BIRTHDATE;
+            this.HOURLYRATE = person.HOURLYRATE;
         }
 
-        public PersonSearchView(List<PERSON> persons)
+        public CoachSearchView(List<PERSON> persons)
         {
-            this.PersonSearchViews = new List<PersonSearchView>();
+            this.CoachSearchViews = new List<CoachSearchView>();
             foreach (var person in persons)
             {
-                PersonSearchView personSearchView = new PersonSearchView(person);
-                this.PersonSearchViews.Add(personSearchView);
+                CoachSearchView coachSearchView = new CoachSearchView(person);
+                this.CoachSearchViews.Add(coachSearchView);
             }
         }
         public int PERSONID { get; set; }
         public string LASTNAME { get; set; }
         public string FIRSTNAME { get; set; }
         public Nullable<System.DateTime> BIRTHDATE { get; set; }
-        public List<PersonSearchView> PersonSearchViews { get; set; }
+        public Nullable<float> HOURLYRATE { get; set; }
+        public string GYMGROUPNAME { get; set; }
+        public int GYMGROUPYEAR { get; set; }
+        public List<CoachSearchView> CoachSearchViews { get; set; }
 
     }
 }

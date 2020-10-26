@@ -34,6 +34,7 @@
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.textBoxChild = new System.Windows.Forms.TextBox();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.comboBoxKind = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,14 +48,14 @@
             // 
             // textBoxSearch
             // 
-            this.textBoxSearch.Location = new System.Drawing.Point(115, 66);
+            this.textBoxSearch.Location = new System.Drawing.Point(115, 56);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(250, 20);
             this.textBoxSearch.TabIndex = 1;
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(371, 64);
+            this.buttonSearch.Location = new System.Drawing.Point(371, 54);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(75, 23);
             this.buttonSearch.TabIndex = 2;
@@ -74,7 +75,7 @@
             // 
             // textBoxChild
             // 
-            this.textBoxChild.Location = new System.Drawing.Point(115, 92);
+            this.textBoxChild.Location = new System.Drawing.Point(115, 109);
             this.textBoxChild.Name = "textBoxChild";
             this.textBoxChild.ReadOnly = true;
             this.textBoxChild.Size = new System.Drawing.Size(250, 20);
@@ -90,11 +91,21 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // comboBoxKind
+            // 
+            this.comboBoxKind.FormattingEnabled = true;
+            this.comboBoxKind.Location = new System.Drawing.Point(115, 82);
+            this.comboBoxKind.Name = "comboBoxKind";
+            this.comboBoxKind.Size = new System.Drawing.Size(250, 21);
+            this.comboBoxKind.TabIndex = 6;
+            this.comboBoxKind.Visible = false;
+            // 
             // FrmBind
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(612, 450);
+            this.Controls.Add(this.comboBoxKind);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.textBoxChild);
             this.Controls.Add(this.dataGridView);
@@ -117,5 +128,6 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.TextBox textBoxChild;
         private System.Windows.Forms.Button buttonSave;
+        private System.Windows.Forms.ComboBox comboBoxKind;
     }
 }

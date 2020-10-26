@@ -27,8 +27,8 @@ namespace EGOFormsApp.Model
             SetEvent(_frmMaster);
             _frmMain.panel1.Controls.Add(_frmMaster);
             _frmMaster.Show();
-            RefreshDataGridView(_frmMaster, egoEntities);
             SetChild(_frmMain);
+            RefreshDataGridView(_frmMaster, egoEntities);
             PositionPanel(_frmMain);
             ColorFirstRow(_frmMaster);
 
@@ -46,8 +46,7 @@ namespace EGOFormsApp.Model
             Button buttonAdd = (Button)sender;
             FrmMaster _frmMaster = (FrmMaster)buttonAdd.Parent;
             Add();
-
-            RefreshDataGridView(_frmMaster, egoEntities);
+            SimulateClickOneFirstDataGridViewRow(_frmMaster);
         }
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -141,7 +140,19 @@ namespace EGOFormsApp.Model
             _textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
             _textBox.AutoCompleteCustomSource = autoCompleteStringCollection;
         }
-
+        private void SimulateClickOneFirstDataGridViewRow(FrmMaster _frmMaster)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            RefreshDataGridView(_frmMaster, egoEntities);
+            
+            UpdateChild(Convert.ToInt32(_frmMaster.dataGridView.Rows[0].Cells[0].Value));
+            if (_frmMaster.dataGridView.Rows.Count != 0)
+            {
+                _frmMaster.dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.Blue;
+                _frmMaster.dataGridView.Rows[0].DefaultCellStyle.ForeColor = Color.White;
+            }
+            Cursor.Current = Cursors.Default;
+        }
         private void SetChild(FrmMain _frmMain)
         {
             slaveObjects = new List<object>();
@@ -154,7 +165,6 @@ namespace EGOFormsApp.Model
                     slaveObjects.Add(new SlaveObject<PAYMENT>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     break;
                 case "PERSON":
-                    slaveObjects.Add(new SlaveObject<KIND>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     slaveObjects.Add(new SlaveObject<DOCUMENT>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     slaveObjects.Add(new SlaveObject<GYMGROUP>(_frmMain, GetObjectById(0, true, null, typeof(T).Name)));
                     break;

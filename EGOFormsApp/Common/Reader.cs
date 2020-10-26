@@ -18,16 +18,15 @@ namespace EGOFormsApp.Common
 {
     public static class Reader
     {
-        const string fileName = @"C:\Users\grand\Downloads\EGO 2020-2021.xlsx";
 
-        public static void ImportExcel(FrmSetting _FrmSetting)
+        public static void ImportExcel(FrmSetting _FrmSetting, string fileName)
         {
             EGOEntities EGOEntities = new EGOEntities();
             _FrmSetting.label1.Text = "Suppression des tables";
             Database.Drop();
             _FrmSetting.label1.Text = "Création des tables";
             Database.Create();
-            List<ExcelModel> ExcelModels = CreateExcelObject(_FrmSetting);
+            List<ExcelModel> ExcelModels = CreateExcelObject(_FrmSetting, fileName);
             _FrmSetting.label1.Text = "Insertion des données";
             CreatePerson(ExcelModels, EGOEntities, _FrmSetting);
         }
@@ -67,12 +66,6 @@ namespace EGOFormsApp.Common
 
                     _EGOEntities.PERSON.Add(Person);
 
-                    PERSON_KIND Person_Kind = new PERSON_KIND();
-                    Person_Kind.KINDID = 1;
-                    Person_Kind.PERSONID = Person.PERSONID;
-
-                    _EGOEntities.PERSON_KIND.Add(Person_Kind);
-
                     GYMGROUP GymGroup;
                     if (!_EGOEntities.GYMGROUP.Any(x => x.GYMGROUPNAME == ExcelModel.GROUPE))
                     {
@@ -86,6 +79,7 @@ namespace EGOFormsApp.Common
                     PERSON_GYMGROUP Person_GymGroup = new PERSON_GYMGROUP();
                     Person_GymGroup.GYMGROUPID = GymGroup.GYMGROUPID;
                     Person_GymGroup.PERSONID = Person.PERSONID;
+                    Person_GymGroup.KINDID = 1;
 
                     _EGOEntities.PERSON_GYMGROUP.Add(Person_GymGroup);
 
@@ -316,7 +310,7 @@ namespace EGOFormsApp.Common
             }
         }
 
-        private static List<ExcelModel> CreateExcelObject(FrmSetting _FrmSetting)
+        private static List<ExcelModel> CreateExcelObject(FrmSetting _FrmSetting, string fileName)
         {
             List<ExcelModel> ExcelModels = new List<ExcelModel>();
             Excel.Application xlApp = new Excel.Application();

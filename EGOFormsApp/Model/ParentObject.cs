@@ -1,4 +1,5 @@
 ﻿using DAL;
+using EGOFormsApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -67,50 +68,75 @@ namespace EGOFormsApp.Model
             switch (typeof(T).Name)
             {
                 case "FAMILY":
-                    return _id == 0 ? egoEntities.FAMILY.First() : egoEntities.FAMILY.First(x => x.FAMILYID == _id);
+                    FAMILY family = null;
+                    if (_id == 0)
+                    {
+                        family = egoEntities.FAMILY.FirstOrDefault();
+                    }else
+                    {
+                        family = egoEntities.FAMILY.FirstOrDefault(x => x.FAMILYID == _id);
+                    }
+                    return family == null ? new FAMILY() : family;
                 case "PERSON":
+                    PERSON person = null;
                     if (_master)
                     {
-                        return _id == 0 ? egoEntities.PERSON.First() : egoEntities.PERSON.First(x => x.PERSONID == _id);
+                        person = _id == 0 ? egoEntities.PERSON.FirstOrDefault() : egoEntities.PERSON.FirstOrDefault(x => x.PERSONID == _id);
                     }
                     else
                     {
                         if (_masterType == "GYMGROUP")
                         {
-                            return _id == 0 ? egoEntities.PERSON_GYMGROUP.First() : egoEntities.PERSON_GYMGROUP.First(x => x.PERSON_GYMGROUP_ID == _id);
+                            PERSON_GYMGROUP person_gymGroup = new PERSON_GYMGROUP();
+                            person_gymGroup = _id == 0 ? egoEntities.PERSON_GYMGROUP.FirstOrDefault() : egoEntities.PERSON_GYMGROUP.FirstOrDefault(x => x.PERSON_GYMGROUP_ID == _id);
+                            return person_gymGroup == null ? new PERSON_GYMGROUP() : person_gymGroup;
                         }
                         else if (_masterType == "FAMILY")
                         {
-                            return _id == 0 ? egoEntities.PERSON.First() : egoEntities.PERSON.First(x => x.PERSONID == _id);
+                            person = _id == 0 ? egoEntities.PERSON.FirstOrDefault() : egoEntities.PERSON.FirstOrDefault(x => x.PERSONID == _id);
                         }
                     }
-                    break;
+                    return person == null ? new PERSON() : person;
                 case "PHONE":
-                    return _id == 0 ? egoEntities.PHONE.First() : egoEntities.PHONE.First(x => x.PHONEID == _id);
+                    PHONE Phone = null;
+                    Phone = _id == 0 ? egoEntities.PHONE.FirstOrDefault() : egoEntities.PHONE.FirstOrDefault(x => x.PHONEID == _id);
+                    return Phone == null ? new PHONE() : Phone;
                 case "DISCOUNT":
-                    return _id == 0 ? egoEntities.DISCOUNT.First() : egoEntities.DISCOUNT.First(x => x.DISCOUNTID == _id);
+                    DISCOUNT Discount = null;
+                    Discount = _id == 0 ? egoEntities.DISCOUNT.FirstOrDefault() : egoEntities.DISCOUNT.FirstOrDefault(x => x.DISCOUNTID == _id);
+                    return Discount == null ? new DISCOUNT() : Discount;
                 case "PAYMENT":
-                    return _id == 0 ? egoEntities.PAYMENT.First() : egoEntities.PAYMENT.First(x => x.PAYMENTID == _id);
+                    PAYMENT Payment = null;
+                    Payment = _id == 0 ? egoEntities.PAYMENT.FirstOrDefault() : egoEntities.PAYMENT.FirstOrDefault(x => x.PAYMENTID == _id);
+                    return Payment == null ? new PAYMENT() : Payment ;
                 case "DOCUMENT":
-                    return _id == 0 ? egoEntities.DOCUMENT.First() : egoEntities.DOCUMENT.First(x => x.DOCUMENTID == _id);
-                case "KIND":
-                    return _id == 0 ? egoEntities.PERSON_KIND.First() : egoEntities.PERSON_KIND.First(x => x.PERSON_KIND_ID == _id);
+                    DOCUMENT Document = null;
+                    Document = _id == 0 ? egoEntities.DOCUMENT.FirstOrDefault() : egoEntities.DOCUMENT.FirstOrDefault(x => x.DOCUMENTID == _id);
+                    return Document == null ? new DOCUMENT() : Document;
                 case "GYMGROUP":
                     if (_master)
                     {
-                        return _id == 0 ? egoEntities.GYMGROUP.First() : egoEntities.GYMGROUP.First(x => x.GYMGROUPID == _id);
+                        GYMGROUP GymGroup = null;
+                        GymGroup = _id == 0 ? egoEntities.GYMGROUP.FirstOrDefault() : egoEntities.GYMGROUP.FirstOrDefault(x => x.GYMGROUPID == _id);
+                        return GymGroup == null ? new GYMGROUP() : GymGroup;
                     }
                     else
                     {
-                        return _id == 0 ? egoEntities.PERSON_GYMGROUP.First() : egoEntities.PERSON_GYMGROUP.First(x => x.PERSON_GYMGROUP_ID == _id);
+                        PERSON_GYMGROUP Person_GymGroup = new PERSON_GYMGROUP();
+                        Person_GymGroup = _id == 0 ? egoEntities.PERSON_GYMGROUP.FirstOrDefault() : egoEntities.PERSON_GYMGROUP.First(x => x.PERSON_GYMGROUP_ID == _id);
+                        return Person_GymGroup == null ? new PERSON_GYMGROUP() : Person_GymGroup;
                     }
             }
+
             return null;
         }
         protected void ColorFirstRow(FrmMaster _frmMaster)
         {
-            _frmMaster.dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.Blue;
-            _frmMaster.dataGridView.Rows[0].DefaultCellStyle.ForeColor = Color.White;
+            if (_frmMaster.dataGridView.Rows.Count > 0)
+            {
+                _frmMaster.dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.Blue;
+                _frmMaster.dataGridView.Rows[0].DefaultCellStyle.ForeColor = Color.White;
+            }
         }
     }
 }

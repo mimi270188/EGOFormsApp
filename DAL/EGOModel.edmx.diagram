@@ -4,20 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e525c39446b2409e83aa2589eab7f3e6" Name="Diagram1">
+      <Diagram DiagramId="e4b6437aedd844ebb294df7b416ac27f" Name="Diagram1">
         <EntityTypeShape EntityType="EGOModel.CONTRIBUTION" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.DISCOUNT" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.DOCUMENT" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.DOCUMENTTYPE" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.FAMILY" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.GYMGROUP" Width="1.5" PointX="3" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.KIND" Width="1.5" PointX="6" PointY="18.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.PAYMENT" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.PAYMENTTYPE" Width="1.5" PointX="3.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.PERSON" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.PERSON_GYMGROUP" Width="1.5" PointX="5.25" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.PERSON_KIND" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EGOModel.PHONE" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.DISCOUNT" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.DOCUMENT" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.DOCUMENTTYPE" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.FAMILY" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.GYMGROUP" Width="1.5" PointX="3" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.KIND" Width="1.5" PointX="3" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.PAYMENT" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.PAYMENTTYPE" Width="1.5" PointX="3.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.PERSON" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.PERSON_GYMGROUP" Width="1.5" PointX="5.25" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EGOModel.PHONE" Width="1.5" PointX="3" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EGOModel.TRANSLATION" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="EGOModel.fk_DISCOUNT_FAMILY" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_DOCUMENT_DOCUMENTTYPE" ManuallyRouted="false" />
@@ -26,10 +25,9 @@
         <AssociationConnector Association="EGOModel.fk_PERSON_FAMILY" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_PHONE_FAMILY" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_PERSON_GYMGROUP_GYMGROUP" ManuallyRouted="false" />
-        <AssociationConnector Association="EGOModel.fk_PERSON_KIND_KIND" ManuallyRouted="false" />
+        <AssociationConnector Association="EGOModel.fk_PERSON_GYMGROUP_KIND" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_PAYMENT_PAYMENTTYPE" ManuallyRouted="false" />
         <AssociationConnector Association="EGOModel.fk_PERSON_GYMGROUP_PERSON" ManuallyRouted="false" />
-        <AssociationConnector Association="EGOModel.fk_PERSON_KIND_PERSON" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

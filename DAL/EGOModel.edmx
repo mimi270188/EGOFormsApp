@@ -105,13 +105,6 @@
           <Property Name="PERSON_GYMGROUP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PERSONID" Type="int" Nullable="false" />
           <Property Name="GYMGROUPID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PERSON_KIND">
-          <Key>
-            <PropertyRef Name="PERSON_KIND_ID" />
-          </Key>
-          <Property Name="PERSON_KIND_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PERSONID" Type="int" Nullable="false" />
           <Property Name="KINDID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PHONE">
@@ -214,6 +207,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_PERSON_GYMGROUP_KIND">
+          <End Role="KIND" Type="Self.KIND" Multiplicity="1" />
+          <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KIND">
+              <PropertyRef Name="KINDID" />
+            </Principal>
+            <Dependent Role="PERSON_GYMGROUP">
+              <PropertyRef Name="KINDID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PERSON_GYMGROUP_PERSON">
           <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
           <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
@@ -222,30 +227,6 @@
               <PropertyRef Name="PERSONID" />
             </Principal>
             <Dependent Role="PERSON_GYMGROUP">
-              <PropertyRef Name="PERSONID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_PERSON_KIND_KIND">
-          <End Role="KIND" Type="Self.KIND" Multiplicity="1" />
-          <End Role="PERSON_KIND" Type="Self.PERSON_KIND" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KIND">
-              <PropertyRef Name="KINDID" />
-            </Principal>
-            <Dependent Role="PERSON_KIND">
-              <PropertyRef Name="KINDID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_PERSON_KIND_PERSON">
-          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
-          <End Role="PERSON_KIND" Type="Self.PERSON_KIND" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PERSON">
-              <PropertyRef Name="PERSONID" />
-            </Principal>
-            <Dependent Role="PERSON_KIND">
               <PropertyRef Name="PERSONID" />
             </Dependent>
           </ReferentialConstraint>
@@ -274,7 +255,6 @@
           <EntitySet Name="PAYMENTTYPE" EntityType="Self.PAYMENTTYPE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PERSON_GYMGROUP" EntityType="Self.PERSON_GYMGROUP" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PERSON_KIND" EntityType="Self.PERSON_KIND" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PHONE" EntityType="Self.PHONE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRANSLATION" EntityType="Self.TRANSLATION" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_DISCOUNT_FAMILY" Association="Self.fk_DISCOUNT_FAMILY">
@@ -305,17 +285,13 @@
             <End Role="GYMGROUP" EntitySet="GYMGROUP" />
             <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
           </AssociationSet>
+          <AssociationSet Name="fk_PERSON_GYMGROUP_KIND" Association="Self.fk_PERSON_GYMGROUP_KIND">
+            <End Role="KIND" EntitySet="KIND" />
+            <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
+          </AssociationSet>
           <AssociationSet Name="fk_PERSON_GYMGROUP_PERSON" Association="Self.fk_PERSON_GYMGROUP_PERSON">
             <End Role="PERSON" EntitySet="PERSON" />
             <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
-          </AssociationSet>
-          <AssociationSet Name="fk_PERSON_KIND_KIND" Association="Self.fk_PERSON_KIND_KIND">
-            <End Role="KIND" EntitySet="KIND" />
-            <End Role="PERSON_KIND" EntitySet="PERSON_KIND" />
-          </AssociationSet>
-          <AssociationSet Name="fk_PERSON_KIND_PERSON" Association="Self.fk_PERSON_KIND_PERSON">
-            <End Role="PERSON" EntitySet="PERSON" />
-            <End Role="PERSON_KIND" EntitySet="PERSON_KIND" />
           </AssociationSet>
           <AssociationSet Name="fk_PHONE_FAMILY" Association="Self.fk_PHONE_FAMILY">
             <End Role="FAMILY" EntitySet="FAMILY" />
@@ -398,7 +374,7 @@
           </Key>
           <Property Name="KINDID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KINDNAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="PERSON_KIND" Relationship="Self.fk_PERSON_KIND_KIND" FromRole="KIND" ToRole="PERSON_KIND" />
+          <NavigationProperty Name="PERSON_GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_KIND" FromRole="KIND" ToRole="PERSON_GYMGROUP" />
         </EntityType>
         <EntityType Name="PAYMENT">
           <Key>
@@ -435,7 +411,6 @@
           <NavigationProperty Name="DOCUMENT" Relationship="Self.fk_DOCUMENT_PERSON" FromRole="PERSON" ToRole="DOCUMENT" />
           <NavigationProperty Name="FAMILY" Relationship="Self.fk_PERSON_FAMILY" FromRole="PERSON" ToRole="FAMILY" />
           <NavigationProperty Name="PERSON_GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_PERSON" FromRole="PERSON" ToRole="PERSON_GYMGROUP" />
-          <NavigationProperty Name="PERSON_KIND" Relationship="Self.fk_PERSON_KIND_PERSON" FromRole="PERSON" ToRole="PERSON_KIND" />
         </EntityType>
         <EntityType Name="PERSON_GYMGROUP">
           <Key>
@@ -444,18 +419,10 @@
           <Property Name="PERSON_GYMGROUP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PERSONID" Type="Int32" Nullable="false" />
           <Property Name="GYMGROUPID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_GYMGROUP" FromRole="PERSON_GYMGROUP" ToRole="GYMGROUP" />
-          <NavigationProperty Name="PERSON" Relationship="Self.fk_PERSON_GYMGROUP_PERSON" FromRole="PERSON_GYMGROUP" ToRole="PERSON" />
-        </EntityType>
-        <EntityType Name="PERSON_KIND">
-          <Key>
-            <PropertyRef Name="PERSON_KIND_ID" />
-          </Key>
-          <Property Name="PERSON_KIND_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PERSONID" Type="Int32" Nullable="false" />
           <Property Name="KINDID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="KIND" Relationship="Self.fk_PERSON_KIND_KIND" FromRole="PERSON_KIND" ToRole="KIND" />
-          <NavigationProperty Name="PERSON" Relationship="Self.fk_PERSON_KIND_PERSON" FromRole="PERSON_KIND" ToRole="PERSON" />
+          <NavigationProperty Name="GYMGROUP" Relationship="Self.fk_PERSON_GYMGROUP_GYMGROUP" FromRole="PERSON_GYMGROUP" ToRole="GYMGROUP" />
+          <NavigationProperty Name="KIND" Relationship="Self.fk_PERSON_GYMGROUP_KIND" FromRole="PERSON_GYMGROUP" ToRole="KIND" />
+          <NavigationProperty Name="PERSON" Relationship="Self.fk_PERSON_GYMGROUP_PERSON" FromRole="PERSON_GYMGROUP" ToRole="PERSON" />
         </EntityType>
         <EntityType Name="PHONE">
           <Key>
@@ -558,14 +525,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_PERSON_KIND_KIND">
+        <Association Name="fk_PERSON_GYMGROUP_KIND">
           <End Role="KIND" Type="Self.KIND" Multiplicity="1" />
-          <End Role="PERSON_KIND" Type="Self.PERSON_KIND" Multiplicity="*" />
+          <End Role="PERSON_GYMGROUP" Type="Self.PERSON_GYMGROUP" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KIND">
               <PropertyRef Name="KINDID" />
             </Principal>
-            <Dependent Role="PERSON_KIND">
+            <Dependent Role="PERSON_GYMGROUP">
               <PropertyRef Name="KINDID" />
             </Dependent>
           </ReferentialConstraint>
@@ -594,18 +561,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_PERSON_KIND_PERSON">
-          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
-          <End Role="PERSON_KIND" Type="Self.PERSON_KIND" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PERSON">
-              <PropertyRef Name="PERSONID" />
-            </Principal>
-            <Dependent Role="PERSON_KIND">
-              <PropertyRef Name="PERSONID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="EGOEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CONTRIBUTION" EntityType="Self.CONTRIBUTION" />
           <EntitySet Name="DISCOUNT" EntityType="Self.DISCOUNT" />
@@ -618,7 +573,6 @@
           <EntitySet Name="PAYMENTTYPE" EntityType="Self.PAYMENTTYPE" />
           <EntitySet Name="PERSON" EntityType="Self.PERSON" />
           <EntitySet Name="PERSON_GYMGROUP" EntityType="Self.PERSON_GYMGROUP" />
-          <EntitySet Name="PERSON_KIND" EntityType="Self.PERSON_KIND" />
           <EntitySet Name="PHONE" EntityType="Self.PHONE" />
           <EntitySet Name="TRANSLATION" EntityType="Self.TRANSLATION" />
           <AssociationSet Name="fk_DISCOUNT_FAMILY" Association="Self.fk_DISCOUNT_FAMILY">
@@ -649,9 +603,9 @@
             <End Role="GYMGROUP" EntitySet="GYMGROUP" />
             <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
           </AssociationSet>
-          <AssociationSet Name="fk_PERSON_KIND_KIND" Association="Self.fk_PERSON_KIND_KIND">
+          <AssociationSet Name="fk_PERSON_GYMGROUP_KIND" Association="Self.fk_PERSON_GYMGROUP_KIND">
             <End Role="KIND" EntitySet="KIND" />
-            <End Role="PERSON_KIND" EntitySet="PERSON_KIND" />
+            <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
           </AssociationSet>
           <AssociationSet Name="fk_PAYMENT_PAYMENTTYPE" Association="Self.fk_PAYMENT_PAYMENTTYPE">
             <End Role="PAYMENTTYPE" EntitySet="PAYMENTTYPE" />
@@ -660,10 +614,6 @@
           <AssociationSet Name="fk_PERSON_GYMGROUP_PERSON" Association="Self.fk_PERSON_GYMGROUP_PERSON">
             <End Role="PERSON" EntitySet="PERSON" />
             <End Role="PERSON_GYMGROUP" EntitySet="PERSON_GYMGROUP" />
-          </AssociationSet>
-          <AssociationSet Name="fk_PERSON_KIND_PERSON" Association="Self.fk_PERSON_KIND_PERSON">
-            <End Role="PERSON" EntitySet="PERSON" />
-            <End Role="PERSON_KIND" EntitySet="PERSON_KIND" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -781,14 +731,6 @@
                 <ScalarProperty Name="PERSON_GYMGROUP_ID" ColumnName="PERSON_GYMGROUP_ID" />
                 <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
                 <ScalarProperty Name="GYMGROUPID" ColumnName="GYMGROUPID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PERSON_KIND">
-            <EntityTypeMapping TypeName="EGOModel.PERSON_KIND">
-              <MappingFragment StoreEntitySet="PERSON_KIND">
-                <ScalarProperty Name="PERSON_KIND_ID" ColumnName="PERSON_KIND_ID" />
-                <ScalarProperty Name="PERSONID" ColumnName="PERSONID" />
                 <ScalarProperty Name="KINDID" ColumnName="KINDID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -828,7 +770,7 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

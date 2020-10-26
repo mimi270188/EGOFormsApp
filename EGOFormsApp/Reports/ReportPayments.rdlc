@@ -520,7 +520,7 @@
                             <TextRun>
                               <Value>=Sum(Fields!RECEIVABLE.Value)</Value>
                               <Style>
-                                <Format>0.00'€';(0.00'€')</Format>
+                                <Format>#,0.00'€';(#,0.00'€')</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -553,7 +553,7 @@
                             <TextRun>
                               <Value>=Sum(Fields!PAID.Value)</Value>
                               <Style>
-                                <Format>0.00'€';(0.00'€')</Format>
+                                <Format>#,0.00'€';(#,0.00'€')</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -586,7 +586,7 @@
                             <TextRun>
                               <Value>=Sum(Fields!REMAININGBALANCE.Value)</Value>
                               <Style>
-                                <Format>0.00'€';(0.00'€')</Format>
+                                <Format>#,0.00'€';(#,0.00'€')</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -606,7 +606,6 @@
                         <rd:FormatSymbolCulture>fr-FR</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -648,7 +647,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>0.92952in</Height>
+    <Height>0.7941in</Height>
     <Style />
   </Body>
   <Width>8.04364in</Width>
@@ -658,14 +657,14 @@
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Textbox Name="Textbox2">
+        <Textbox Name="Textbox14">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Paiement manquant au </Value>
+                  <Value>Paiements manquants au </Value>
                   <Style>
                     <FontSize>12pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -684,11 +683,11 @@
               </Style>
             </Paragraph>
           </Paragraphs>
-          <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>0.92287cm</Top>
-          <Left>0.36724cm</Left>
+          <rd:DefaultName>Textbox8</rd:DefaultName>
+          <Top>0.97cm</Top>
+          <Left>0.38597cm</Left>
           <Height>0.6cm</Height>
-          <Width>19.81541cm</Width>
+          <Width>19.65891cm</Width>
           <Style>
             <Border>
               <Style>None</Style>

@@ -136,9 +136,9 @@
     <Compile Include="ViewModel\GymGroupPersonSearchView.cs" />
     <Compile Include="ViewModel\PersonGymGroupSearchView.cs" />
     <Compile Include="ViewModel\GymGroupSearchView.cs" />
-    <Compile Include="ViewModel\PersonKindSearchView.cs" />
     <Compile Include="ViewModel\KindSearchView.cs" />
     <Compile Include="ViewModel\PaymentSearchView.cs" />
+    <Compile Include="ViewModel\CoachSearchView.cs" />
     <Compile Include="ViewModel\PersonSearchView.cs" />
     <Compile Include="ViewModel\PhoneSearchView.cs" />
     <EmbeddedResource Include="FrmAddEdit.resx">

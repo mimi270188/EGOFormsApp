@@ -83,9 +83,10 @@ namespace EGOFormsApp.Model
         private void RefreshDataGridView(FrmSlave _frmSlave)
         {
             _frmSlave.dataGridView.Columns.Clear();
+            string masterObjectTypeName = GetObjectTypeName(masterObj);
             if (typeof(T).Name == "PERSON")
             {
-                if (masterObj.GetType().BaseType.Name == "FAMILY")
+                if (masterObjectTypeName == "FAMILY")
                 {
                     int _familyId = Convert.ToInt32(Reflection.GetValue(masterObj, "FAMILYID"));
                     PersonSearchView _personSearchView = new PersonSearchView(egoEntities.PERSON.Where(x => x.FAMILYID == _familyId).ToList());
@@ -94,9 +95,10 @@ namespace EGOFormsApp.Model
                     AddColumnEditDeleteToDataGridView(_frmSlave, false);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
                 }
-                if (masterObj.GetType().BaseType.Name == "GYMGROUP")
+                if (masterObjectTypeName == "GYMGROUP")
                 {
-                    int _gymGroupId = Convert.ToInt32(Reflection.GetValue(masterObj, masterObj.GetType().BaseType.Name + "ID"));
+                    int _gymGroupId = Convert.ToInt32(Reflection.GetValue(masterObj, masterObjectTypeName + "ID"));
+                    if (_gymGroupId == 0){return;}
                     GymGroupPersonSearchView _gymGroupPersonSearchView = new GymGroupPersonSearchView(egoEntities.PERSON_GYMGROUP.Where(x => x.GYMGROUPID == _gymGroupId).ToList());
                     _frmSlave.dataGridView.DataSource = _gymGroupPersonSearchView.GymGroupPersonSearchViews;
                     _frmSlave.dataGridView.Columns["PERSON_GYMGROUP_ID"].Visible = false;
@@ -106,7 +108,7 @@ namespace EGOFormsApp.Model
             }
             else if (typeof(T).Name == "PHONE")
             {
-                if (masterObj.GetType().BaseType.Name == "FAMILY")
+                if (masterObjectTypeName == "FAMILY")
                 {
                     int _familyId = Convert.ToInt32(Reflection.GetValue(masterObj, "FAMILYID"));
                     PhoneSearchView _phoneSearchView = new PhoneSearchView(egoEntities.PHONE.Where(x => x.FAMILYID == _familyId).ToList());
@@ -118,7 +120,7 @@ namespace EGOFormsApp.Model
             }
             else if (typeof(T).Name == "DISCOUNT")
             {
-                if (masterObj.GetType().BaseType.Name == "FAMILY")
+                if (masterObjectTypeName == "FAMILY")
                 {
                     int _familyId = Convert.ToInt32(Reflection.GetValue(masterObj, "FAMILYID"));
                     DiscountSearchView _discountSearchView = new DiscountSearchView(egoEntities.DISCOUNT.Where(x => x.FAMILYID == _familyId).ToList());
@@ -130,7 +132,7 @@ namespace EGOFormsApp.Model
             }
             else if (typeof(T).Name == "PAYMENT")
             {
-                if (masterObj.GetType().BaseType.Name == "FAMILY")
+                if (masterObjectTypeName == "FAMILY")
                 {
                     int _familyId = Convert.ToInt32(Reflection.GetValue(masterObj, "FAMILYID"));
                     PaymentSearchView _paymentSearchView = new PaymentSearchView(egoEntities.PAYMENT.Where(x => x.FAMILYID == _familyId).ToList());
@@ -142,7 +144,7 @@ namespace EGOFormsApp.Model
             }
             else if (typeof(T).Name == "DOCUMENT")
             {
-                if (masterObj.GetType().BaseType.Name == "PERSON")
+                if (masterObjectTypeName == "PERSON")
                 {
                     int _personId = Convert.ToInt32(Reflection.GetValue(masterObj, "PERSONID"));
                     DocumentSearchView _documentSearchView = new DocumentSearchView(egoEntities.DOCUMENT.Where(x => x.PERSONID == _personId).ToList());
@@ -152,21 +154,9 @@ namespace EGOFormsApp.Model
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
                 }
             }
-            else if (typeof(T).Name == "KIND")
-            {
-                if (masterObj.GetType().BaseType.Name == "PERSON")
-                {
-                    int _personId = Convert.ToInt32(Reflection.GetValue(masterObj, "PERSONID"));
-                    PersonKindSearchView _personkindSearchView = new PersonKindSearchView(egoEntities.PERSON_KIND.Where(x => x.PERSONID == _personId).ToList());
-                    _frmSlave.dataGridView.DataSource = _personkindSearchView.PersonKindSearchViews;
-                    _frmSlave.dataGridView.Columns["PERSON_KIND_ID"].Visible = false;
-                    AddColumnEditDeleteToDataGridView(_frmSlave, true);
-                    DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
-                }
-            }
             else if (typeof(T).Name == "GYMGROUP")
             {
-                if (masterObj.GetType().BaseType.Name == "PERSON")
+                if (masterObjectTypeName == "PERSON")
                 {
                     int _personId = Convert.ToInt32(Reflection.GetValue(masterObj, "PERSONID"));
                     PersonGymGroupSearchView _personGymGroupSearchView = new PersonGymGroupSearchView(egoEntities.PERSON_GYMGROUP.Where(x => x.PERSONID == _personId).ToList());
@@ -177,10 +167,22 @@ namespace EGOFormsApp.Model
                 }
             }
         }
+        private string GetObjectTypeName(object obj)
+        {
+            List<string> possibleType = new List<string>() { "PERSON", "FAMILY", "GYMGROUP" };
+            if (possibleType.Contains(obj.GetType().Name))
+            {
+                return obj.GetType().Name;
+            }
+            else
+            {
+                return obj.GetType().BaseType.Name;
+            }
+        }
 
         private void SetEvent(FrmSlave _frmSlave)
         {
-            string materObjectName = masterObj.GetType().BaseType.Name;
+            string materObjectName = GetObjectTypeName(masterObj);
             string slaveObjectName = typeof(T).Name;
             if (bindsTables.Any(x => x.MasterObjectName == materObjectName && x.SlaveObjectName == slaveObjectName))
             {

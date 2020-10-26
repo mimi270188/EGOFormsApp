@@ -98,9 +98,6 @@
     <Compile Include="PERSON_GYMGROUP.cs">
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PERSON_KIND.cs">
-      <DependentUpon>EGOModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="PHONE.cs">
       <DependentUpon>EGOModel.tt</DependentUpon>
     </Compile>
@@ -135,6 +132,7 @@
       <LastGenOutput>EGOModel.cs</LastGenOutput>
     </Content>
     <Content Include="SQLCreation.sql" />
+    <Content Include="SQLDrop.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
