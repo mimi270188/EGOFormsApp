@@ -73,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Common.cs" />
     <Compile Include="Common\Control\ComboboxItem.cs" />
     <Compile Include="Common\Control\DataGridViewControl.cs" />
     <Compile Include="Common\Database.cs" />
@@ -125,11 +126,11 @@
     <Compile Include="Model\MasterObject.cs" />
     <Compile Include="Model\ParentObject.cs" />
     <Compile Include="Model\ReportDocument.cs" />
+    <Compile Include="Model\ReportDateOfPayment.cs" />
     <Compile Include="Model\ReportPayment.cs" />
     <Compile Include="Model\SlaveObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModel\DiscountSearchView.cs" />
     <Compile Include="ViewModel\DocumentSearchView.cs" />
     <Compile Include="ViewModel\FamilySearchView.cs" />
@@ -139,7 +140,8 @@
     <Compile Include="ViewModel\KindSearchView.cs" />
     <Compile Include="ViewModel\PaymentSearchView.cs" />
     <Compile Include="ViewModel\CoachSearchView.cs" />
-    <Compile Include="ViewModel\PersonSearchView.cs" />
+    <Compile Include="ViewModel\PersonSlaveSearchView.cs" />
+    <Compile Include="ViewModel\PersonMasterSearchView.cs" />
     <Compile Include="ViewModel\PhoneSearchView.cs" />
     <EmbeddedResource Include="FrmAddEdit.resx">
       <DependentUpon>FrmAddEdit.cs</DependentUpon>
@@ -171,10 +173,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Reports\ReportDateOfPayments.rdlc" />
     <EmbeddedResource Include="Reports\ReportDocuments.rdlc" />
     <EmbeddedResource Include="Reports\ReportPayments.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\DAL.PAYMENT.datasource" />
     <None Include="Properties\DataSources\EGOFormsApp.Model.BindingTables.datasource" />
+    <None Include="Properties\DataSources\EGOFormsApp.Model.ReportDateOfPayment.datasource" />
     <None Include="Properties\DataSources\EGOFormsApp.Model.ReportPayment.datasource" />
     <None Include="Properties\DataSources\EGOFormsApp.ViewModel.Group.GymGroupSearchView.datasource" />
     <None Include="Properties\Settings.settings">
@@ -224,21 +229,6 @@
       <Project>{bd8e94ea-6e8f-4350-b8b7-352e8e42dad1}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

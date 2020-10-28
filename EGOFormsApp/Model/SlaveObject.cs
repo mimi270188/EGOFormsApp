@@ -25,22 +25,21 @@ namespace EGOFormsApp.Model
             set
             {
                 masterObj = value;
-                RefreshDataGridView(frmSlave);
+                RefreshDataGridView(frmSlave, currentStartYear);
             }
         }
         private FrmSlave frmSlave;
-        public SlaveObject(FrmMain _frmMain, object _obj)
+        private int currentStartYear;
+        public SlaveObject(FrmMain _frmMain, string _masterTypeName, int _currentStartYear)
         {
             egoEntities = new EGOEntities();
-            masterObj = _obj;
+            currentStartYear = _currentStartYear;
             frmSlave = new FrmSlave() { Dock = DockStyle.Fill, TopLevel = false, TopMost = true, FormBorderStyle = FormBorderStyle.None };
             CreateBinding();
-            SetEvent(frmSlave);
+            SetEvent(frmSlave, _masterTypeName);
             GetFreePanel(_frmMain).Controls.Add(frmSlave);
-            frmSlave.Show();
-            RefreshDataGridView(frmSlave);
-
             frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name);
+            frmSlave.Show();
         }
 
 
@@ -50,7 +49,7 @@ namespace EGOFormsApp.Model
             FrmSlave _frmSlave = (FrmSlave)buttonAdd.Parent;
             Add(masterObj);
 
-            RefreshDataGridView(_frmSlave);
+            RefreshDataGridView(_frmSlave, currentStartYear);
         }
         private void buttonBind_Click(object sender, EventArgs e)
         {
@@ -58,7 +57,7 @@ namespace EGOFormsApp.Model
             FrmSlave _frmSlave = (FrmSlave)buttonAdd.Parent;
             Bind(masterObj);
 
-            RefreshDataGridView(_frmSlave);
+            RefreshDataGridView(_frmSlave, currentStartYear);
         }
         private void Bind(object _masterObj)
         {
@@ -70,17 +69,26 @@ namespace EGOFormsApp.Model
             DataGridView dataGridView = (DataGridView)sender;
             if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
             {
-                Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().BaseType.Name));              
+                try
+                {
+                    Delete(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().BaseType.Name));
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Suppression impossible car quelque chose s'y rattache");
+                }
             }
             else if (dataGridView.Columns[e.ColumnIndex].Name == "Edit")
             {
                 Edit(GetObjectById(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value), false, typeof(T).Name, masterObj.GetType().BaseType.Name));
             }
             FrmSlave _frmSlave = (FrmSlave)dataGridView.Parent;
-            RefreshDataGridView(_frmSlave);
+            RefreshDataGridView(_frmSlave, currentStartYear);
         }
 
-        private void RefreshDataGridView(FrmSlave _frmSlave)
+
+        private void RefreshDataGridView(FrmSlave _frmSlave, int _currentStartYear)
         {
             _frmSlave.dataGridView.Columns.Clear();
             string masterObjectTypeName = GetObjectTypeName(masterObj);
@@ -89,11 +97,12 @@ namespace EGOFormsApp.Model
                 if (masterObjectTypeName == "FAMILY")
                 {
                     int _familyId = Convert.ToInt32(Reflection.GetValue(masterObj, "FAMILYID"));
-                    PersonSearchView _personSearchView = new PersonSearchView(egoEntities.PERSON.Where(x => x.FAMILYID == _familyId).ToList());
-                    _frmSlave.dataGridView.DataSource = _personSearchView.PersonSearchViews;
+                    PersonSlaveSearchView _personSlaveSearchView = new PersonSlaveSearchView(egoEntities.PERSON.Where(x => x.FAMILYID == _familyId).ToList(), _currentStartYear);
+                    _frmSlave.dataGridView.DataSource = _personSlaveSearchView.PersonSlaveSearchViews;
                     _frmSlave.dataGridView.Columns["PERSONID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, false);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _personSlaveSearchView.PersonSlaveSearchViews.Count + ")";
                 }
                 if (masterObjectTypeName == "GYMGROUP")
                 {
@@ -104,6 +113,7 @@ namespace EGOFormsApp.Model
                     _frmSlave.dataGridView.Columns["PERSON_GYMGROUP_ID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, true);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _gymGroupPersonSearchView.GymGroupPersonSearchViews.Count + ")";
                 }
             }
             else if (typeof(T).Name == "PHONE")
@@ -116,6 +126,7 @@ namespace EGOFormsApp.Model
                     _frmSlave.dataGridView.Columns["PHONEID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, false);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _phoneSearchView.PhoneSearchViews.Count + ")";
                 }
             }
             else if (typeof(T).Name == "DISCOUNT")
@@ -128,6 +139,7 @@ namespace EGOFormsApp.Model
                     _frmSlave.dataGridView.Columns["DISCOUNTID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, false);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _discountSearchView.DiscountSearchViews.Count + ")";
                 }
             }
             else if (typeof(T).Name == "PAYMENT")
@@ -140,6 +152,7 @@ namespace EGOFormsApp.Model
                     _frmSlave.dataGridView.Columns["PAYMENTID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, false);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _paymentSearchView.PaymentSearchViews.Count + ")";
                 }
             }
             else if (typeof(T).Name == "DOCUMENT")
@@ -152,6 +165,7 @@ namespace EGOFormsApp.Model
                     _frmSlave.dataGridView.Columns["DOCUMENTID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, false);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _documentSearchView.DocumentSearchViews.Count + ")";
                 }
             }
             else if (typeof(T).Name == "GYMGROUP")
@@ -164,6 +178,7 @@ namespace EGOFormsApp.Model
                     _frmSlave.dataGridView.Columns["PERSON_GYMGROUP_ID"].Visible = false;
                     AddColumnEditDeleteToDataGridView(_frmSlave, true);
                     DataGridViewControl.SetHeaderName(_frmSlave.dataGridView);
+                    frmSlave.label1.Text = Translation.GetByKey(typeof(T).Name) + "(" + _personGymGroupSearchView.PersonGymGroupSearchViews.Count + ")";
                 }
             }
         }
@@ -180,11 +195,11 @@ namespace EGOFormsApp.Model
             }
         }
 
-        private void SetEvent(FrmSlave _frmSlave)
+
+        private void SetEvent(FrmSlave _frmSlave, string _masterTypeName)
         {
-            string materObjectName = GetObjectTypeName(masterObj);
             string slaveObjectName = typeof(T).Name;
-            if (bindsTables.Any(x => x.MasterObjectName == materObjectName && x.SlaveObjectName == slaveObjectName))
+            if (bindsTables.Any(x => x.MasterObjectName == _masterTypeName && x.SlaveObjectName == slaveObjectName))
             {
                 _frmSlave.buttonAdd.Text = "Lier";
                 _frmSlave.buttonAdd.Click += new System.EventHandler(buttonBind_Click);

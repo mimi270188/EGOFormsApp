@@ -7,9 +7,9 @@ using DAL;
 
 namespace EGOFormsApp.ViewModel
 {
-    class PersonSearchView
+    class PersonMasterSearchView
     {
-        public PersonSearchView(PERSON person)
+        public PersonMasterSearchView(PERSON person)
         {
             this.PERSONID = person.PERSONID;
             this.LASTNAME = person.LASTNAME;
@@ -17,12 +17,12 @@ namespace EGOFormsApp.ViewModel
             this.BIRTHDATE = person.BIRTHDATE;
         }
 
-        public PersonSearchView(List<PERSON> persons)
+        public PersonMasterSearchView(List<PERSON> persons)
         {
-            this.PersonSearchViews = new List<PersonSearchView>();
+            this.PersonSearchViews = new List<PersonMasterSearchView>();
             foreach (var person in persons)
             {
-                PersonSearchView personSearchView = new PersonSearchView(person);
+                PersonMasterSearchView personSearchView = new PersonMasterSearchView(person);
                 this.PersonSearchViews.Add(personSearchView);
             }
         }
@@ -30,7 +30,7 @@ namespace EGOFormsApp.ViewModel
         public string LASTNAME { get; set; }
         public string FIRSTNAME { get; set; }
         public Nullable<System.DateTime> BIRTHDATE { get; set; }
-        public List<PersonSearchView> PersonSearchViews { get; set; }
+        public List<PersonMasterSearchView> PersonSearchViews { get; set; }
 
     }
 }

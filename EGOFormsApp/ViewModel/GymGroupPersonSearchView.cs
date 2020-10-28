@@ -16,7 +16,7 @@ namespace EGOFormsApp.ViewModel
             this.FIRSTNAME = gymGroupPerson.PERSON.FIRSTNAME;
             this.BIRTHDATE = gymGroupPerson.PERSON.BIRTHDATE;
             this.HOURLYRATE = gymGroupPerson.PERSON.HOURLYRATE;
-            this.CITY = gymGroupPerson.PERSON.FAMILY.CITY;
+            this.KINDNAME = gymGroupPerson.KIND.KINDNAME;
         }
 
         public GymGroupPersonSearchView(List<PERSON_GYMGROUP> gymGroupPersons)
@@ -35,6 +35,7 @@ namespace EGOFormsApp.ViewModel
         public Nullable<System.DateTime> BIRTHDATE { get; set; }
         public Nullable<float> HOURLYRATE { get; set; }
         public string CITY { get; set; }
+        public string KINDNAME { get; set; }
         public List<GymGroupPersonSearchView> GymGroupPersonSearchViews { get; set; }
     }
 }

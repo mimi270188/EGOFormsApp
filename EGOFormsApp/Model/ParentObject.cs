@@ -31,15 +31,8 @@ namespace EGOFormsApp.Model
         }
         protected void Delete(object obj)
         {
-            try
-            {
                 egoEntities.Entry(obj).State = EntityState.Deleted;
                 egoEntities.SaveChanges();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Suppression impossible car quelque chose s'y rattache");
-            }
         }
 
         protected void AddColumnEditDeleteToDataGridView(Form _frm, bool _bindTables)
@@ -129,14 +122,6 @@ namespace EGOFormsApp.Model
             }
 
             return null;
-        }
-        protected void ColorFirstRow(FrmMaster _frmMaster)
-        {
-            if (_frmMaster.dataGridView.Rows.Count > 0)
-            {
-                _frmMaster.dataGridView.Rows[0].DefaultCellStyle.BackColor = Color.Blue;
-                _frmMaster.dataGridView.Rows[0].DefaultCellStyle.ForeColor = Color.White;
-            }
         }
     }
 }

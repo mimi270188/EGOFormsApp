@@ -59,16 +59,11 @@ namespace EGOFormsApp
             panel5.Controls.Clear();
         }
 
-        private void coachToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void MissingDocumentReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             FrmReport frmReport = new FrmReport("EGOFormsApp.Reports.ReportDocuments.rdlc");
-            frmReport.ShowDialog();
+            frmReport.Show();
             Cursor.Current = Cursors.Default;
         }
 
@@ -76,7 +71,15 @@ namespace EGOFormsApp
         {
             Cursor.Current = Cursors.WaitCursor;
             FrmReport frmReport = new FrmReport("EGOFormsApp.Reports.ReportPayments.rdlc");
-            frmReport.ShowDialog();
+            frmReport.Show(this);
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void DateOfPaymentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            FrmReport frmReport = new FrmReport("EGOFormsApp.Reports.ReportDateOfPayments.rdlc");
+            frmReport.Show();
             Cursor.Current = Cursors.Default;
         }
     }

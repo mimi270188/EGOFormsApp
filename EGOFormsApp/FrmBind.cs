@@ -32,6 +32,7 @@ namespace EGOFormsApp
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            dataGridView.Columns.Clear();
             var dataGridViewButtonColumn = new DataGridViewButtonColumn();
 
             switch (type.Name)
@@ -49,7 +50,7 @@ namespace EGOFormsApp
                     dataGridView.Columns.Add(dataGridViewButtonColumn);
                     break;
                 case "PERSON":
-                    PersonSearchView _personSearchView = new PersonSearchView(egoEntities.PERSON.Where( x=> x.LASTNAME.Contains(textBoxSearch.Text)).ToList());
+                    PersonMasterSearchView _personSearchView = new PersonMasterSearchView(egoEntities.PERSON.Where( x=> x.LASTNAME.Contains(textBoxSearch.Text)).ToList());
                     dataGridView.DataSource = _personSearchView.PersonSearchViews;
                     dataGridView.Columns["PERSONID"].Visible = false;
 
@@ -97,7 +98,7 @@ namespace EGOFormsApp
                     break;
                 case "PERSON":
                     textBoxParent.Text = Reflection.GetValue(_masterObj, "GYMGROUPYEAR").ToString() + " " + Reflection.GetValue(_masterObj, "GYMGROUPNAME").ToString();
-                    PersonSearchView _personSearchView = new PersonSearchView(_egoEntities.PERSON.ToList());
+                    PersonMasterSearchView _personSearchView = new PersonMasterSearchView(_egoEntities.PERSON.ToList());
                     dataGridView.DataSource = _personSearchView.PersonSearchViews;
                     dataGridView.Columns["PERSONID"].Visible = false;
 
@@ -129,13 +130,14 @@ namespace EGOFormsApp
             DataGridView dataGridView = (DataGridView)sender;
             if (dataGridView.Columns[e.ColumnIndex].Name == "Select")
             {
-                currentChildId = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[1].Value);
                 switch (type.Name)
                 {
                     case "GYMGROUP":
+                        currentChildId = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells["GYMGROUPID"].Value);
                         textBoxChild.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString();
                         break;
                     case "PERSON":
+                        currentChildId = Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells["PERSONID"].Value);
                         textBoxChild.Text = dataGridView.Rows[e.RowIndex].Cells[2].Value.ToString() + "-" + dataGridView.Rows[e.RowIndex].Cells[3].Value.ToString();
                         break;
                     default:
@@ -149,6 +151,11 @@ namespace EGOFormsApp
             if (currentChildId == 0)
             {
                 MessageBox.Show("Merci de choisir avant d'enregistrer");
+                return;
+            }
+            if (comboBoxKind.SelectedItem == null)
+            {
+                MessageBox.Show("Merci de choisir un type avant d'enregistrer");
                 return;
             }
             PERSON_GYMGROUP person_GymGroup;

@@ -39,13 +39,12 @@
             this.manquantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paiementsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manquantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.echéanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DateOfPaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.coachToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,8 +55,7 @@
             this.familyToolStripMenuItem,
             this.PersonToolStripMenuItem,
             this.groupToolStripMenuItem,
-            this.rapportToolStripMenuItem,
-            this.coachToolStripMenuItem});
+            this.rapportToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1295, 24);
@@ -114,13 +112,13 @@
             this.documentsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manquantsToolStripMenuItem});
             this.documentsToolStripMenuItem.Name = "documentsToolStripMenuItem";
-            this.documentsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.documentsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.documentsToolStripMenuItem.Text = "Documents";
             // 
             // manquantsToolStripMenuItem
             // 
             this.manquantsToolStripMenuItem.Name = "manquantsToolStripMenuItem";
-            this.manquantsToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.manquantsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.manquantsToolStripMenuItem.Text = "Manquants";
             this.manquantsToolStripMenuItem.Click += new System.EventHandler(this.MissingDocumentReportToolStripMenuItem_Click);
             // 
@@ -128,23 +126,24 @@
             // 
             this.paiementsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manquantToolStripMenuItem,
-            this.echéanceToolStripMenuItem});
+            this.DateOfPaymentToolStripMenuItem});
             this.paiementsToolStripMenuItem.Name = "paiementsToolStripMenuItem";
-            this.paiementsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.paiementsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.paiementsToolStripMenuItem.Text = "Paiements";
             // 
             // manquantToolStripMenuItem
             // 
             this.manquantToolStripMenuItem.Name = "manquantToolStripMenuItem";
-            this.manquantToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.manquantToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.manquantToolStripMenuItem.Text = "Manquant";
             this.manquantToolStripMenuItem.Click += new System.EventHandler(this.MissingPaymentReportToolStripMenuItem_Click);
             // 
-            // echéanceToolStripMenuItem
+            // DateOfPaymentToolStripMenuItem
             // 
-            this.echéanceToolStripMenuItem.Name = "echéanceToolStripMenuItem";
-            this.echéanceToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.echéanceToolStripMenuItem.Text = "Echéance";
+            this.DateOfPaymentToolStripMenuItem.Name = "DateOfPaymentToolStripMenuItem";
+            this.DateOfPaymentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DateOfPaymentToolStripMenuItem.Text = "Echéance";
+            this.DateOfPaymentToolStripMenuItem.Click += new System.EventHandler(this.DateOfPaymentToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -187,13 +186,6 @@
             this.panel5.Size = new System.Drawing.Size(630, 93);
             this.panel5.TabIndex = 16;
             // 
-            // coachToolStripMenuItem
-            // 
-            this.coachToolStripMenuItem.Name = "coachToolStripMenuItem";
-            this.coachToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
-            this.coachToolStripMenuItem.Text = "Coach";
-            this.coachToolStripMenuItem.Click += new System.EventHandler(this.coachToolStripMenuItem_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,8 +225,7 @@
         private System.Windows.Forms.ToolStripMenuItem paiementsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manquantsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manquantToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem echéanceToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem coachToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DateOfPaymentToolStripMenuItem;
     }
 }
 

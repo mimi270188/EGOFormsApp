@@ -69,7 +69,7 @@ namespace EGOFormsApp.Common
                     GYMGROUP GymGroup;
                     if (!_EGOEntities.GYMGROUP.Any(x => x.GYMGROUPNAME == ExcelModel.GROUPE))
                     {
-                        GymGroup = CreateGymGroup(ExcelModel, _EGOEntities, Convert.ToSingle(_ExcelModel.Where(x => x.GROUPE == ExcelModel.GROUPE).Max(x => x.RGLTDU)));
+                        GymGroup = CreateGymGroup(ExcelModel, _EGOEntities);
                     }
                     else
                     {
@@ -83,15 +83,21 @@ namespace EGOFormsApp.Common
 
                     _EGOEntities.PERSON_GYMGROUP.Add(Person_GymGroup);
 
-                    PHONE Phone = new PHONE();
-                    Phone.FAMILYID = Family.FAMILYID;
-                    Phone.PHONENUMBER = ExcelModel.TELEPHONE;
-                    _EGOEntities.PHONE.Add(Phone);
+                    if (!_EGOEntities.PHONE.Any(x => x.FAMILYID == Family.FAMILYID && x.PHONENUMBER == ExcelModel.TELEPHONE))
+                    {
+                        PHONE Phone = new PHONE();
+                        Phone.FAMILYID = Family.FAMILYID;
+                        Phone.PHONENUMBER = ExcelModel.TELEPHONE;
+                        _EGOEntities.PHONE.Add(Phone);
+                    }
 
-                    Phone = new PHONE();
-                    Phone.FAMILYID = Family.FAMILYID;
-                    Phone.PHONENUMBER = ExcelModel.PORTABLE;
-                    _EGOEntities.PHONE.Add(Phone);
+                    if (!_EGOEntities.PHONE.Any(x => x.FAMILYID == Family.FAMILYID && x.PHONENUMBER == ExcelModel.PORTABLE))
+                    {
+                        PHONE Phone = new PHONE();
+                        Phone.FAMILYID = Family.FAMILYID;
+                        Phone.PHONENUMBER = ExcelModel.PORTABLE;
+                        _EGOEntities.PHONE.Add(Phone);
+                    }
 
                     DOCUMENT Document;
                     if (ExcelModel.FICHE)
@@ -99,7 +105,7 @@ namespace EGOFormsApp.Common
                         Document = new DOCUMENT();
                         Document.DOCUMENTTYPEID = 1;
                         Document.PERSONID = Person.PERSONID;
-                        Document.DOCUMENTYEAR = CurrentStartYear();
+                        Document.DOCUMENTYEAR = Common.CurrentStartYear();
                         _EGOEntities.DOCUMENT.Add(Document);
                     }
                     if (ExcelModel.AUTPAR)
@@ -107,7 +113,7 @@ namespace EGOFormsApp.Common
                         Document = new DOCUMENT();
                         Document.DOCUMENTTYPEID = 2;
                         Document.PERSONID = Person.PERSONID;
-                        Document.DOCUMENTYEAR = CurrentStartYear();
+                        Document.DOCUMENTYEAR = Common.CurrentStartYear();
                         _EGOEntities.DOCUMENT.Add(Document);
                     }
                     if (ExcelModel.PHOTO)
@@ -115,7 +121,7 @@ namespace EGOFormsApp.Common
                         Document = new DOCUMENT();
                         Document.DOCUMENTTYPEID = 3;
                         Document.PERSONID = Person.PERSONID;
-                        Document.DOCUMENTYEAR = CurrentStartYear();
+                        Document.DOCUMENTYEAR = Common.CurrentStartYear();
                         _EGOEntities.DOCUMENT.Add(Document);
                     }
                     if (ExcelModel.CM)
@@ -123,7 +129,7 @@ namespace EGOFormsApp.Common
                         Document = new DOCUMENT();
                         Document.DOCUMENTTYPEID = 4;
                         Document.PERSONID = Person.PERSONID;
-                        Document.DOCUMENTYEAR = CurrentStartYear();
+                        Document.DOCUMENTYEAR = Common.CurrentStartYear();
                         _EGOEntities.DOCUMENT.Add(Document);
                     }
 
@@ -140,8 +146,8 @@ namespace EGOFormsApp.Common
                             Payment.PAYMENTTYPEID = 1;
                         }
                         Payment.FAMILYID = Family.FAMILYID;
-                        Payment.GYMYEAR = CurrentStartYear();
-                        Payment.PAYMENTDATE = DateTime.ParseExact("01/10/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        Payment.GYMYEAR = Common.CurrentStartYear();
+                        Payment.PAYMENTDATE = DateTime.ParseExact("30/09/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         Payment.CHECKNUMBER = ExcelModel.ECH1NUMCHEQUE;
                         Payment.AMOUNT = ExcelModel.ECH1MONTANT;
                         _EGOEntities.PAYMENT.Add(Payment);
@@ -158,8 +164,8 @@ namespace EGOFormsApp.Common
                             Payment.PAYMENTTYPEID = 1;
                         }
                         Payment.FAMILYID = Family.FAMILYID;
-                        Payment.GYMYEAR = CurrentStartYear();
-                        Payment.PAYMENTDATE = DateTime.ParseExact("01/11/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        Payment.GYMYEAR = Common.CurrentStartYear();
+                        Payment.PAYMENTDATE = DateTime.ParseExact("30/11/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         Payment.CHECKNUMBER = ExcelModel.ECH2NUMCHEQUE;
                         Payment.AMOUNT = ExcelModel.ECH2MONTANT;
                         _EGOEntities.PAYMENT.Add(Payment);
@@ -176,8 +182,8 @@ namespace EGOFormsApp.Common
                             Payment.PAYMENTTYPEID = 1;
                         }
                         Payment.FAMILYID = Family.FAMILYID;
-                        Payment.GYMYEAR = CurrentStartYear();
-                        Payment.PAYMENTDATE = DateTime.ParseExact("01/12/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        Payment.GYMYEAR = Common.CurrentStartYear();
+                        Payment.PAYMENTDATE = DateTime.ParseExact("28/02/2021", "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         Payment.CHECKNUMBER = ExcelModel.ECH3NUMCHEQUE;
                         Payment.AMOUNT = ExcelModel.ECH3MONTANT;
                         _EGOEntities.PAYMENT.Add(Payment);
@@ -194,8 +200,8 @@ namespace EGOFormsApp.Common
                             Payment.PAYMENTTYPEID = 1;
                         }
                         Payment.FAMILYID = Family.FAMILYID;
-                        Payment.GYMYEAR = CurrentStartYear();
-                        Payment.PAYMENTDATE = DateTime.ParseExact("01/01/2021", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        Payment.GYMYEAR = Common.CurrentStartYear();
+                        Payment.PAYMENTDATE = DateTime.ParseExact("30/04/2021", "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         Payment.CHECKNUMBER = ExcelModel.ECH4NUMCHEQUE;
                         Payment.AMOUNT = ExcelModel.ECH4MONTANT;
                         _EGOEntities.PAYMENT.Add(Payment);
@@ -206,8 +212,8 @@ namespace EGOFormsApp.Common
 
                         Payment.PAYMENTTYPEID = 2;
                         Payment.FAMILYID = Family.FAMILYID;
-                        Payment.GYMYEAR = CurrentStartYear();
-                        Payment.PAYMENTDATE = DateTime.ParseExact("01/01/2021", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        Payment.GYMYEAR = Common.CurrentStartYear();
+                        Payment.PAYMENTDATE = DateTime.ParseExact("28/09/2020", "dd/MM/yyyy", CultureInfo.InvariantCulture);
                         Payment.CHECKNUMBER = ExcelModel.ECH4NUMCHEQUE;
                         Payment.AMOUNT = ExcelModel.COTISLICENCE;
                         _EGOEntities.PAYMENT.Add(Payment);
@@ -217,9 +223,17 @@ namespace EGOFormsApp.Common
                     {
                         DISCOUNT Discount = new DISCOUNT();
                         Discount.FAMILYID = Family.FAMILYID;
-                        Discount.DISCOUNTYEAR = CurrentStartYear();
+                        Discount.DISCOUNTYEAR = Common.CurrentStartYear();
                         Discount.DESCRIPTION = "Cotisation";
                         Discount.AMOUNT = 35;
+
+                        _EGOEntities.DISCOUNT.Add(Discount);
+
+                        Discount = new DISCOUNT();
+                        Discount.FAMILYID = Family.FAMILYID;
+                        Discount.DISCOUNTYEAR = Common.CurrentStartYear();
+                        Discount.DESCRIPTION = "Ancienneté";
+                        Discount.AMOUNT = ExcelModel.REDUCANCIEN;
 
                         _EGOEntities.DISCOUNT.Add(Discount);
                     }
@@ -263,7 +277,7 @@ namespace EGOFormsApp.Common
                 {
                     DISCOUNT Discount = new DISCOUNT();
                     Discount.FAMILYID = Family.FAMILYID;
-                    Discount.DISCOUNTYEAR = CurrentStartYear();
+                    Discount.DISCOUNTYEAR = Common.CurrentStartYear();
                     Discount.DESCRIPTION = "Réduction familiale";
                     Discount.AMOUNT = 10;
 
@@ -285,29 +299,17 @@ namespace EGOFormsApp.Common
 
             return Family;
         }
-        private static GYMGROUP CreateGymGroup(ExcelModel _ExcelModel, EGOEntities _EGOEntities, float _YEARPRICE)
+        private static GYMGROUP CreateGymGroup(ExcelModel _ExcelModel, EGOEntities _EGOEntities)
         {
                 GYMGROUP GymGroup = new GYMGROUP();
                 GymGroup.GYMGROUPNAME = _ExcelModel.GROUPE;
                 GymGroup.NUMBEROFHOURS = 0;
-                GymGroup.GYMGROUPYEAR = CurrentStartYear();
-                GymGroup.YEARPRICE = _YEARPRICE;
+                GymGroup.GYMGROUPYEAR = Common.CurrentStartYear();
+                GymGroup.YEARPRICE = _ExcelModel.RGLTDUTT;
 
                 _EGOEntities.GYMGROUP.Add(GymGroup);
 
             return GymGroup;
-        }
-
-        public static int CurrentStartYear()
-        {
-            if (DateTime.Now.Month > 8)
-            {
-                return DateTime.Now.Year;
-            }
-            else
-            {
-                return DateTime.Now.Year - 1;
-            }
         }
 
         private static List<ExcelModel> CreateExcelObject(FrmSetting _FrmSetting, string fileName)
@@ -330,6 +332,10 @@ namespace EGOFormsApp.Common
                 ExcelModel ExcelModel = new ExcelModel();
                 int col = 1;
                 ExcelModel.GROUPE = xlRange.Cells[i, col] != null && xlRange.Cells[i, col].Value != null ? xlRange.Cells[i, col].Value.ToString() : string.Empty;
+                col++;
+                ExcelModel.RGLTDUTT = xlRange.Cells[i, col] != null && xlRange.Cells[i, col].Value != null && xlRange.Cells[i, col].Value.ToString() != string.Empty ? Convert.ToSingle(xlRange.Cells[i, col].Value.ToString()) : Convert.ToSingle(0);
+                col++;
+                ExcelModel.REDUCANCIEN = xlRange.Cells[i, col] != null && xlRange.Cells[i, col].Value != null && xlRange.Cells[i, col].Value.ToString() != string.Empty ? Convert.ToSingle(xlRange.Cells[i, col].Value.ToString()) : Convert.ToSingle(0);
                 col++;
                 ExcelModel.NOM = xlRange.Cells[i, col] != null && xlRange.Cells[i, col].Value != null ? xlRange.Cells[i, col].Value.ToString() : string.Empty;
                 col++;
@@ -405,6 +411,8 @@ namespace EGOFormsApp.Common
         private class ExcelModel
         {
             public string GROUPE { get; set; }
+            public float RGLTDUTT { get; set; }
+            public float REDUCANCIEN { get; set; }
             public string NOM { get; set; }
             public string PRENOM { get; set; }
             public DateTime NEELE { get; set; }

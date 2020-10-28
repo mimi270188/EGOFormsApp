@@ -29,6 +29,9 @@ namespace EGOFormsApp
                 case "EGOFormsApp.Reports.ReportPayments.rdlc":
                     bindingSource.DataSource = GetReportPayments();
                     break;
+                case "EGOFormsApp.Reports.ReportDateOfPayments.rdlc":
+                    bindingSource.DataSource = GetReportDateOfPayments();
+                    break;
                 default:
                     break;
             }
@@ -51,7 +54,7 @@ namespace EGOFormsApp
             List<ReportPayment> reportPayments = new List<ReportPayment>();
             EGOEntities egoEntities = new EGOEntities();
             List<FAMILY> familys = egoEntities.FAMILY.ToList().OrderBy(x => x.LASTNAME).ToList();
-            int year = Reader.CurrentStartYear();
+            int year = Common.Common.CurrentStartYear();
             float contribution = 0;
             if (egoEntities.CONTRIBUTION.Any(x => x.GYMYEAR == year))
             {
@@ -61,10 +64,11 @@ namespace EGOFormsApp
             foreach (var family in familys)
             {
                 ReportPayment reportPayment = new ReportPayment();
-
+                int numberOfSubscriber = family.PERSON.SelectMany(x => x.PERSON_GYMGROUP).Select(x => x.GYMGROUP).Where(x => x.GYMGROUPYEAR == year).ToList().Count;
                 float PAID = family.PAYMENT.Where(x => x.GYMYEAR == year).Sum(x => x.AMOUNT);
-                float RECEIVABLE = (family.PERSON.SelectMany(x => x.PERSON_GYMGROUP).Select(x => x.GYMGROUP).Where(x => x.GYMGROUPYEAR == year).Sum(x => x.YEARPRICE) + contribution) - family.DISCOUNT.Sum(x => x.AMOUNT);
-                float REMAININGBALANCE = RECEIVABLE - PAID;
+                float RECEIVABLE = (family.PERSON.SelectMany(x => x.PERSON_GYMGROUP).Select(x => x.GYMGROUP).Where(x => x.GYMGROUPYEAR == year).Sum(x => x.YEARPRICE) + (contribution * numberOfSubscriber));
+                float DISCOUNT = family.DISCOUNT.Sum(x => x.AMOUNT);
+                float REMAININGBALANCE = RECEIVABLE - PAID - DISCOUNT;
 
                 if (REMAININGBALANCE != 0)
                 {
@@ -89,7 +93,7 @@ namespace EGOFormsApp
             List<PERSON> persons = egoEntities.PERSON.ToList();
             List<DOCUMENTTYPE> documentTypes = egoEntities.DOCUMENTTYPE.ToList();
             List<GYMGROUP> gymGroups = egoEntities.GYMGROUP.ToList();
-            int GYMGROUPYEAR = Reader.CurrentStartYear();
+            int GYMGROUPYEAR = Common.Common.CurrentStartYear();
 
             foreach (var person in persons)
             {
@@ -138,6 +142,25 @@ namespace EGOFormsApp
 
             return ReportDocuments;
         }
+        private List<ReportDateOfPayment> GetReportDateOfPayments()
+        {
+            List<ReportDateOfPayment> reportDateOfPayments = new List<ReportDateOfPayment>();
+            EGOEntities egoEntities = new EGOEntities();
+            List<PAYMENT> payments = egoEntities.PAYMENT.Where(x => x.PAYMENTTYPEID == 2).OrderBy(x => x.PAYMENTDATE).ThenBy(x => x.CHECKNUMBER).ThenBy(x => x.AMOUNT).ToList();
 
+            foreach (var payment in payments)
+            {
+                ReportDateOfPayment reportDateOfPayment = new ReportDateOfPayment();
+                reportDateOfPayment.AMOUNT = payment.AMOUNT;
+                reportDateOfPayment.CHECKNUMBER = payment.CHECKNUMBER;
+                reportDateOfPayment.GYMYEAR = payment.GYMYEAR;
+                reportDateOfPayment.LASTNAME = payment.FAMILY.LASTNAME;
+                reportDateOfPayment.PAYMENTDATE = payment.PAYMENTDATE;
+
+                reportDateOfPayments.Add(reportDateOfPayment);
+            }
+
+            return reportDateOfPayments;
+        }
     }
 }
